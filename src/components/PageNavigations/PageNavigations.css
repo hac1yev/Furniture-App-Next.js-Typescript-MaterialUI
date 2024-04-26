@@ -1,0 +1,18 @@
+.page-nav a{
+    color: #2D2D2B;
+    opacity: 0.5;
+    padding: 0 15px;
+    border-right: 1px solid #000;
+    font-size: 16px;
+}
+
+.page-nav:last-child a {
+    opacity: 1;
+    border-right: none!important;
+}
+
+@media screen and (max-width: 600px) {
+    .page-nav a {
+        font-size: 14px;
+    }
+}

@@ -1,0 +1,142 @@
+.profile-product-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 15px;
+    position: relative;
+}
+.profile-product-item {
+    width: 100%;
+    margin-top: 15px;
+    position: relative;
+
+}
+
+.profile-product-item > a {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+.product-item-img {
+    width: 100%;
+    height: 240px;
+    position: relative;
+}
+
+.profile-product-item-img {
+    max-width: 214px;
+    height: 150px;
+    width: 100%;
+    position: relative;
+}
+
+.product-title-item {
+    max-width: 330px;
+    width: 100%;
+    position: relative;
+}
+
+.product-item-img > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.product-item-img > div img {
+    object-fit: cover!important;
+    border-radius: 10px;
+}
+.profile-product-item-img > div img {
+    object-fit: cover!important;
+    border-radius: 10px;
+}
+
+.product-item span {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+    color: #B8926A;
+}
+
+.profile-product-item span {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 700;
+    color: #B8926A;
+}
+
+.products-header {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 58px;
+}
+
+.heart-box {
+    width: 45px;
+    height: 38px;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heart-box svg {
+    color: #B8926A;
+    cursor: pointer;
+}
+
+.profile-heart-box {
+    position: absolute;
+    top: 12px;
+    right: -100px;
+    width: 45px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-heart-box svg {
+    color: #B8926A;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 899.5px) {
+    .profile-product-item > a {
+        width: fit-content;
+    }
+
+    .profile-heart-box {
+        position: absolute;
+        top: 12px;
+        right: 10px;
+        width: 45px;
+        height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 599.5px) {
+    .product-title-item {
+        margin: 0 auto;
+    }
+
+    .product-item {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+}

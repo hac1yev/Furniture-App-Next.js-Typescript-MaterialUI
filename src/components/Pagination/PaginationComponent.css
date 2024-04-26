@@ -1,0 +1,4 @@
+.MuiPagination-root ul {
+    display: flex;
+    justify-content: center!important;
+}
