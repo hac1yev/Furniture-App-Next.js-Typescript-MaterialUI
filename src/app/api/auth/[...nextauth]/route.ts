@@ -4,11 +4,6 @@ import { User } from "@/models/User";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-type CredentialsType = {
-  email: string;
-  password: string;
-};
-
 const handler = NextAuth({
   session: {
     strategy: "jwt",
@@ -18,21 +13,20 @@ const handler = NextAuth({
   },
   providers: [
     CredentialsProvider({
+      type: 'credentials',
       name: "Credentials",
-      credentials: {
-        username: { label: "Email", type: "email", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
-      },
-      async authorize(credentials: CredentialsType, req: any) {
-        const { email, password } = credentials;   
+      credentials: {},
+      async authorize(credentials) {
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };   
         
         await connectToDB();
 
         const user = await User.findOne({ email });
         
         const passwordIsCorrect = await isPasswordCorrect(password, user.password);
-
-        
 
         if(passwordIsCorrect) {
           return {

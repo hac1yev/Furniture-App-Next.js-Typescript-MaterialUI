@@ -2,17 +2,7 @@
 
 import { useEffect, useReducer, useState } from "react";
 import "../../components/Home/Products/Products.css";
-import {
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  Grid,
-  Menu,
-  MenuItem,
-  Typography,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Button, Checkbox, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -22,11 +12,7 @@ import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import PageNavigations from "@/components/PageNavigations/PageNavigations";
 import SortIcon from "@mui/icons-material/Sort";
-import {
-  navigation_data,
-  CollectionTitles,
-  CategoryTitles,
-} from "@/dummy_data/data";
+import { navigation_data, CollectionTitles, CategoryTitles } from "@/dummy_data/data";
 import useFavorites from "@/hooks/useFavorites";
 
 type FurnitureType = {
@@ -87,15 +73,13 @@ function reducer(state: StateType, action: ActionType) {
       };
     default:
       return state;
-  }
-}
+  };
+};
 
 const ProductsPage = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const selectedId = useSelector(
-    (state: any) => state.favoriteReducer.selectedId
-  );
+  const selectedId = useSelector((state: any) => state.favoriteReducer.selectedId);
   const [furnitures, setFurnitures] = useState<AllFurnituresType | null>(null);
   const { addFavorites, removeFavorites }: HookTypes = useFavorites();
   const { data: session } = useSession();
@@ -190,8 +174,11 @@ const ProductsPage = () => {
 
   const handleSort = () => {
     setAnchorEl(true);
-    Array.isArray(filteredProducts) && filteredProducts.sort((a,b) => b.price - a.price);
   };
+
+  if(anchorEl) {
+    Array.isArray(filteredProducts) && filteredProducts.sort((a,b) => b.price - a.price);
+  }
 
   if (!furnitures) {
     return (
