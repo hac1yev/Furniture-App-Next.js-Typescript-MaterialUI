@@ -9,12 +9,13 @@
     flex-direction: column;
     margin-top: 15px;
     position: relative;
+    height: fit-content;
 }
 .profile-product-item {
     width: 100%;
     margin-top: 15px;
     position: relative;
-
+    height: fit-content;
 }
 
 .profile-product-item > a {

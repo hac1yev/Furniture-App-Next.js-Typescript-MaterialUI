@@ -5,6 +5,7 @@ import SimilarProducts from "@/components/Products/SimilarProducts";
 import { Box, Button, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { navigation_data } from "@/dummy_data/data";
 
 type ParamsType = {
   params: {
@@ -29,23 +30,6 @@ const ProductDetail = ({ params }: ParamsType) => {
   const { id } = params;  
   const [productData,setProductData] = useState<ProductDataType | null>(null);
 
-  const navigation_data = [
-      {
-        id: "p1",
-        title: "Home",
-        pathname: "/",
-      },
-      {
-        id: "p2",
-        title: "Products",
-        pathname: "/products",
-      },
-      {
-        id: "p3",
-        title: productData?.title || "",
-        pathname: `/products/${id}`,
-      },
-  ];
 
   useEffect(() => {
     (async function getProductDetail() {

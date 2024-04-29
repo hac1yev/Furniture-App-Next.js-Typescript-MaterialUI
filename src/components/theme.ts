@@ -41,6 +41,12 @@ const theme = createTheme({
       lineHeight: '32px',
       color: '#2D2D2B'
     },
+    h6: {
+      fontSize: '20px',
+      fontWeight: '600',
+      lineHeight: '28px',
+      color: '#B8926A'
+    },
     subtitle1: {
       fontSize: '20px',
       fontWeight: '500',

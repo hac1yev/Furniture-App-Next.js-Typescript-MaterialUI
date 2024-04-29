@@ -4,19 +4,7 @@ import { Container, Typography } from '@mui/material';
 
 import SearchResult from '@/components/Search/SearchResult';
 import PaginationComponent from '@/components/Pagination/PaginationComponent';
-
-const navigation_data = [
-    {
-      id: "p1",
-      title: "Home",
-      pathname: "/",
-    },
-    {
-      id: "p2",
-      title: "Search Result",
-      pathname: "/search",
-    },
-];
+import { navigation_data } from '@/dummy_data/data';
 
 const Search = async ({ searchParams }: any) => {
     const { q, page } = searchParams;

@@ -4,19 +4,7 @@ import { CssBaseline } from "@mui/material";
 import Container from "@mui/material/Container";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
-
-const navigation_data = [
-  {
-    id: "p1",
-    title: "Home",
-    pathname: "/",
-  },
-  {
-    id: "p2",
-    title: "My Account",
-    pathname: "/profile",
-  },
-];
+import { navigation_data } from "@/dummy_data/data";
 
 const ProfilePage = async () => {
   const session = await getServerSession();
