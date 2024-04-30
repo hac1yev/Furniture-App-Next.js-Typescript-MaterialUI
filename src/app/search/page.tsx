@@ -21,7 +21,7 @@ const Search = async ({ searchParams }: any) => {
             <PageNavigations arr={navigation_data} />
             <Typography variant='h1' sx={{ marginY: 5 }}>SEARCH RESULT</Typography>
             <Typography variant='subtitle2' sx={{ marginY: 5 }}>Your search results for “sofa”.</Typography>
-            <SearchResult products={products} count={count} />
+            <SearchResult products={products} />
             <PaginationComponent count={count} />
         </Container>
     );

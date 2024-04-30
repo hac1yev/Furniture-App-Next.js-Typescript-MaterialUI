@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import "../../components/Home/Products/Products.css";
-import { Box, Button, Checkbox, Container, Grid, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Checkbox, Container, Grid, Pagination, Stack, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import PageNavigations from "@/components/PageNavigations/PageNavigations";
@@ -86,6 +86,9 @@ const ProductsPage = () => {
   const navigation = useRouter();
   const isLarge = useMediaQuery("(max-width:899.5px)");
   const [anchorEl, setAnchorEl] = useState(false);
+  const [productPage,setProductPage] = useState(1);
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   let filteredProducts;
 
@@ -138,6 +141,14 @@ const ProductsPage = () => {
     fetchFurnitures();
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+
+    params.set("page", `${productPage}`);
+
+    router.push(`/products?${params}`); 
+  }, [productPage, router, searchParams]);
+
   const handleAddFavorites = (id: string) => {
     if (session) {
       addFavorites(id);
@@ -179,6 +190,12 @@ const ProductsPage = () => {
   if(anchorEl) {
     Array.isArray(filteredProducts) && filteredProducts.sort((a,b) => b.price - a.price);
   }
+
+  let paginatioCount = Array.isArray(filteredProducts) && Math.ceil(filteredProducts.length / 9)
+
+  const handlePaginationChange = async (e: React.ChangeEvent<unknown>, value: number) => {
+    setProductPage(value);
+  };
 
   if (!furnitures) {
     return (
@@ -289,7 +306,7 @@ const ProductsPage = () => {
         </Grid>
         <Grid container sm={12} md={9} lg={9}>
           {Array.isArray(filteredProducts) &&
-            filteredProducts?.map((item: FurnitureType) => (
+            filteredProducts.slice(((productPage - 1) * 9), productPage * 9)?.map((item: FurnitureType) => (
               <Grid
                 className="product-item"
                 item
@@ -330,6 +347,22 @@ const ProductsPage = () => {
                 </Box>
               </Grid>
             ))}
+        </Grid>
+        <Grid container sm={12} md={3} lg={3}></Grid>
+        <Grid 
+          container 
+          sm={12} 
+          md={9} 
+          lg={9} 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            marginY: 8 
+          }}
+        >
+            <Stack spacing={2}>
+              <Pagination onChange={handlePaginationChange} size="large" page={productPage} count={paginatioCount as number} variant="outlined" shape="rounded" />
+            </Stack>
         </Grid>
       </Grid>
     </Container>

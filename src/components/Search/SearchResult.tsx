@@ -22,11 +22,9 @@ type ProductType = {
   
   type AllProductsCountType = {
     products: ProductType[];
-    count: number;
   };
 
-
-const SearchResult = ({ products, count }: AllProductsCountType) => {
+const SearchResult = ({ products }: AllProductsCountType) => {
     const selectedId = useSelector((state: any) => state.favoriteReducer.selectedId);
     const { addFavorites, removeFavorites } = useFavorites();
     const session = useSession();
