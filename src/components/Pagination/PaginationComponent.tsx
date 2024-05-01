@@ -2,7 +2,6 @@
 
 import { Pagination, Stack } from "@mui/material";
 import './PaginationComponent.css'
-import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 type CountType = {
@@ -10,20 +9,18 @@ type CountType = {
 };
 
 const PaginationComponent = ({ count }: CountType) => {
-    const [page, setPage] = useState(1);
     const router = useRouter();
     const searchParams = useSearchParams(); 
+    const page = Number(searchParams.get("page")) || 1;
 
     const paginationCount = Math.ceil(count / 8);
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
         const params = new URLSearchParams(searchParams);  
 
         params.set("page", `${value}`);
 
         router.push(`/search?${params}`);        
-
     };
 
     return (
