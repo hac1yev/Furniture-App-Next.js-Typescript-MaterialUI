@@ -153,7 +153,7 @@ const Header = () => {
                     </ul>
                 </nav>
             </header>
-            <Suspense>
+            <Suspense fallback={<div>Loading...</div>}>
                 <Search openSearch={openSearch} handleSearchSubmit={handleSearchSubmit} setOpenSearch={setOpenSearch} />
             </Suspense>
         </> 
