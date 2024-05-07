@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useReducer, useState } from "react";
+import React, { Suspense, useEffect, useReducer, useState } from "react";
 import "../../components/Home/Products/Products.css";
 import { Box, Button, Checkbox, Container, Grid, Pagination, Stack, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
@@ -412,16 +412,18 @@ const AllProducts = () => {
             marginY: 8,
           }}
         >
-          <Stack spacing={2}>
-            <Pagination
-              onChange={handlePaginationChange}
-              size="large"
-              page={productPage}
-              count={paginatioCount as number}
-              variant="outlined"
-              shape="rounded"
-            />
-          </Stack>
+          <Suspense fallback={<p>Loading...</p>}>
+            <Stack spacing={2}>
+              <Pagination
+                onChange={handlePaginationChange}
+                size="large"
+                page={productPage}
+                count={paginatioCount as number}
+                variant="outlined"
+                shape="rounded"
+              />
+            </Stack>
+          </Suspense>
         </Grid>
       </Grid>
     </Container>
