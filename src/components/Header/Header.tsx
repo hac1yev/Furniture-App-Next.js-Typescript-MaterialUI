@@ -6,6 +6,8 @@ import { useState } from 'react';
 import './Header.css';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Badge } from '@mui/material';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 const Header = () => {    
     const {data: session} = useSession();
@@ -46,7 +48,11 @@ const Header = () => {
                     </div>
                     <div className="logo"><Link href="/"><strong>HomeDecor</strong></Link></div>
                     <div className='header-right'>
-                        <Image width={20} height={20} className='shop-img' src='/header/shopping-icon.svg' alt="shopping" />
+                        <Link href={"/shopping-cart"} className='desktop-shopping'>
+                            <Badge badgeContent={4} color={"primary"} >
+                                <ShoppingCartOutlinedIcon color="action" />
+                            </Badge>
+                        </Link>
                         {!session && <Link href='/login'>
                             <Image width={20} height={20} className='user-img' src='/header/user-icon.svg' alt="user" />
                         </Link>}
@@ -55,6 +61,11 @@ const Header = () => {
                         </Link>}
                     </div>
                     <div className="burger">
+                        <Link href={"/shopping-cart"}>
+                            <Badge badgeContent={4} color={"primary"} >
+                                <ShoppingCartOutlinedIcon color="action" />
+                            </Badge>
+                        </Link>
                         <Image width={20} height={20} className='mobile-search-icon' src='/header/search.svg' alt="search-icon" />
                         <Image width={20} height={20} onClick={handleClick} src='/header/hamburger.svg' alt="hamburger-icon" />
                     </div>
@@ -96,7 +107,9 @@ const Header = () => {
                 <nav className={openMenu ? "mobile-menu" : "mobile-menu deactive-mobile-menu"} id='mobile_menu'>
                     <div className='header-top'>
                         <div className='header-mobile-left'>
-                            <Image width={20} height={20} src='/header/shopping-icon.svg' alt="shopping-img" />
+                            <Badge badgeContent={4} color="secondary">
+                                <ShoppingCartOutlinedIcon color="action" />
+                            </Badge>
                             <Link href="/login">
                                 <Image width={20} height={20} src='/header/user-icon.svg' alt="user-icon" />
                             </Link>

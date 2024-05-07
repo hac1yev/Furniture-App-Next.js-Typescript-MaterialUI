@@ -10,6 +10,7 @@
     margin-top: 15px;
     position: relative;
     height: fit-content;
+    border-radius: 10px;
 }
 .profile-product-item {
     width: 100%;
@@ -27,6 +28,7 @@
 .product-item-img {
     width: 100%;
     height: 240px;
+    border-radius: 10px;
     position: relative;
 }
 

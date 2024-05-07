@@ -1,5 +1,8 @@
 "use client"
 
+import CollectionSlide from "@/components/Home/CollectionSlide/CollectionSlide";
+import Discount from "@/components/Home/Discount/Discount";
+import Hero from "@/components/Home/Hero/Hero";
 import Popular from "@/components/Home/Popular/Popular";
 import Products from "@/components/Home/Products/Products";
 import useFavorites from "@/hooks/useFavorites";
@@ -9,8 +12,11 @@ export default function Home() {
   
   return (
     <>  
+      <Hero />
+      <CollectionSlide />
+      <Discount />
       <Products addFavorites={addFavorites} removeFavorites={removeFavorites} />
       <Popular addFavorites={addFavorites} removeFavorites={removeFavorites} />
     </>
   );
-}
+};

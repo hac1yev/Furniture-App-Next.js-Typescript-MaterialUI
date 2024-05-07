@@ -1,0 +1,147 @@
+.hero-section {
+    padding: 0 20px;
+    height: 730px;
+}
+
+.hero-img-col img {
+    width: 100%;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    gap: 30px;
+}
+
+.hero-content h1 {
+    width: 150%;
+    background: transparent;
+    z-index: 1;
+    color: #2D2D2B;
+    font-family: Didot;
+    font-size: 72px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 86px; 
+    margin-bottom: 0;
+}
+
+.hero-content p {
+    color: var(--Black, #2D2D2B);
+    font-variant-numeric: lining-nums proportional-nums;
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; 
+    margin-bottom: 0;
+}
+
+.hero-content button, 
+.discount-section button {
+    max-width: 330px;
+    width: 100%;
+    height: 54px;
+    border: 1px solid var(--Primary, #B8926A);
+    outline: none;
+    border-radius: 10px;
+    background: var(--Primary, #B8926A);
+    color: var(--Background, #EAE6DF);
+    font-family: Raleway;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+}
+
+.hero-content button:hover,
+.discount-section button:hover {
+    background-color: transparent;
+    color: var(--Primary, #B8926A);
+}
+
+
+.hero-content button img {
+    margin-top: -4px;
+    background-color: transparent;
+    filter: invert(1);
+}
+
+@media screen and (max-width: 1200px){
+    .hero-content h1 {
+        width: 100%;
+        font-size: 60px;
+        line-height: 66px; 
+    }
+}
+@media screen and (max-width: 991.5px){
+    .hero-section {
+        margin-top: 30px;
+        padding: 0 10px;
+        height: auto;
+    }
+
+    .hero-section > div {
+
+    }
+
+    .hero-content h1 {
+        width: 100%;
+    }
+
+    .hero-img-col {
+        height: 300px!important;
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 899px) {
+    .hero-section img {
+        object-fit: cover;
+    }
+
+    .hero-content {
+        justify-content: flex-start!important;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .hero-section {
+        margin-top: 30px;
+        padding: 0 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 50px;
+        line-height: 56px;
+    }
+}
+@media screen and (max-width: 500px){
+    .hero-section {
+        margin-top: 30px;
+        padding: 0 10px;
+    }
+
+    .hero-content {
+        gap: 20px;
+        justify-content: flex-start;
+    }
+
+    .hero-content h1 {
+        font-size: 35px;
+        line-height: 40px;
+    }
+
+    .hero-content button {
+        width: 250px;
+        height: 45px;
+        font-size: 15px;
+    }
+}

@@ -76,3 +76,52 @@ export const CollectionTitles = [
     title: "BATHROOM",
   },
 ];
+
+
+export const collectionData = [
+  {
+    id: "col2",
+    title: "BEDROOM",
+    img: "/collection/bedroom.png"
+  },
+  {
+    id: "col3",
+    title: "LIVING ROOM",
+    img: "/collection/living.png"
+  },
+  {
+    id: "col4",
+    title: "KITCHEN",
+    img: "/collection/kitchen.png"
+  },
+  {
+    id: "col5",
+    title: "LIBRARY",
+    img: "/collection/library.png"
+  },
+  {
+    id: "col6",
+    title: "OFFICE",
+    img: "/collection/office.png"
+  },
+  {
+    id: "col7",
+    title: "LAUNDARY ROOM",
+    img: "/collection/laundary.png"
+  },
+  {
+    id: "col8",
+    title: "GUEST ROOM",
+    img: "/collection/guest.png"
+  },
+  {
+    id: "col9",
+    title: "FAMILY ROOM",
+    img: "/collection/family.png"
+  },
+  {
+    id: "col10",
+    title: "BATHROOM",
+    img: "/collection/bathroom.png"
+  },
+];

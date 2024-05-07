@@ -73,13 +73,15 @@ function reducer(state: StateType, action: ActionType) {
       };
     default:
       return state;
-  };
-};
+  }
+}
 
 const AllProducts = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const selectedId = useSelector((state: any) => state.favoriteReducer.selectedId);
+  const selectedId = useSelector(
+    (state: any) => state.favoriteReducer.selectedId
+  );
   const [furnitures, setFurnitures] = useState<AllFurnituresType | null>(null);
   const { addFavorites, removeFavorites }: HookTypes = useFavorites();
   const { data: session } = useSession();
@@ -87,10 +89,10 @@ const AllProducts = () => {
   const isLarge = useMediaQuery("(max-width:899.5px)");
   const [anchorEl, setAnchorEl] = useState(false);
   const searchParams = useSearchParams();
-  
+
   const router = useRouter();
 
-  const productPage = Number(searchParams.get("page")) || 1; 
+  const productPage = Number(searchParams.get("page")) || 1;
 
   let filteredProducts;
 
@@ -140,10 +142,10 @@ const AllProducts = () => {
       setFurnitures(data);
     };
 
-    router.replace(`/products?page=${productPage}`)
+    router.replace(`/products?page=${productPage}`);
 
     fetchFurnitures();
-  }, [productPage,router]);
+  }, [productPage, router]);
 
   const handleAddFavorites = (id: string) => {
     if (session) {
@@ -183,16 +185,21 @@ const AllProducts = () => {
     setAnchorEl(true);
   };
 
-  if(anchorEl) {
-    Array.isArray(filteredProducts) && filteredProducts.sort((a,b) => b.price - a.price);
+  if (anchorEl) {
+    Array.isArray(filteredProducts) &&
+      filteredProducts.sort((a, b) => b.price - a.price);
   }
 
-  let paginatioCount = Array.isArray(filteredProducts) && Math.ceil(filteredProducts.length / 9)
+  let paginatioCount =
+    Array.isArray(filteredProducts) && Math.ceil(filteredProducts.length / 9);
 
-  const handlePaginationChange = async (e: React.ChangeEvent<unknown>, value: number) => {
+  const handlePaginationChange = async (
+    e: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", `${value}`);
-    router.push(`/products?${params}`);   
+    router.push(`/products?${params}`);
   };
 
   if (!furnitures) {
@@ -210,8 +217,15 @@ const AllProducts = () => {
     <Container component="div" maxWidth={false} sx={{ mt: 4, width: "100%" }}>
       <PageNavigations arr={navigation_data} />
       <Grid item xs={12} sm={6} lg={4} padding={1} sx={{ marginTop: 5 }}>
-        <Box className="product-title-item">
-          <Typography variant="h3" className={"products-header"}>
+        <Box
+          className="product-title-item"
+          sx={isLarge ? { margin: "0 auto" } : { textAlign: "start" }}
+        >
+          <Typography
+            variant="h3"
+            sx={isLarge ? { textAlign: "center" } : { textAlign: "start" }}
+            className={"products-header"}
+          >
             PRODUCTS
           </Typography>
         </Box>
@@ -227,7 +241,7 @@ const AllProducts = () => {
           flexDirection: isLarge ? "column" : "row",
           justifyContent: "space-between",
           alignItems: "flex-start",
-          gap: 2,
+          gap: 1,
         }}
       >
         <Box sx={{ maxWidth: "500px", width: "100%", position: "relative" }}>
@@ -240,7 +254,7 @@ const AllProducts = () => {
         <Button
           variant="outlined"
           size="large"
-          onClick={handleSort}          
+          onClick={handleSort}
           sx={{
             width: isLarge ? "100%" : "auto",
             border: "1px solid primary.main",
@@ -250,117 +264,164 @@ const AllProducts = () => {
           <SortIcon sx={{ marginRight: 1 }} />
           SORT BY PRICE
         </Button>
+        {isLarge && (
+            <>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleSort}
+                sx={{
+                  width: isLarge ? "100%" : "auto",
+                  border: "1px solid primary.main",
+                  px: 6,
+                }}
+              >
+                <SortIcon sx={{ marginRight: 1 }} />
+                CATEGORIES
+              </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={handleSort}
+                sx={{
+                  width: isLarge ? "100%" : "auto",
+                  border: "1px solid primary.main",
+                  px: 6,
+                }}
+              >
+                <SortIcon sx={{ marginRight: 1 }} />
+                COLLECTIONS
+              </Button>
+            </>
+          )}
       </Grid>
-      <Grid container sx={{ marginY: 8 }}>
+      <Grid container sx={!isLarge ? { marginY: 8 } : { marginY: 4 }}>
         <Grid container sm={12} md={3} lg={3}>
           <Box component={"div"}>
-            <Typography variant="h6" sx={{ marginLeft: "10px" }}>
-              CATEGORIES
-            </Typography>
-            <Box component={"div"} sx={{ marginY: 2 }}>
-              {CategoryTitles.map((item) => (
-                <Box
-                  component={"div"}
-                  key={item.id}
-                  sx={{ display: "flex", alignItems: "center", gap: "5px" }}
+            {!isLarge && (
+              <>
+                {" "}
+                <Typography variant="h6" sx={{ marginLeft: "10px" }}>
+                  CATEGORIES
+                </Typography>
+                <Box component={"div"} sx={{ marginY: 2 }}>
+                  {CategoryTitles.map((item) => (
+                    <Box
+                      component={"div"}
+                      key={item.id}
+                      sx={{ display: "flex", alignItems: "center", gap: "5px" }}
+                    >
+                      <Checkbox
+                        sx={{
+                          color: "primary.main",
+                          "&.Mui-checked": {
+                            color: "primary.main",
+                          },
+                        }}
+                        onChange={handleCategoryChange.bind(null, item.title)}
+                      />
+                      {item.title}
+                    </Box>
+                  ))}
+                </Box>{" "}
+                <Typography
+                  variant="h6"
+                  sx={{ marginLeft: "10px", marginTop: 6 }}
                 >
-                  <Checkbox
-                    sx={{
-                      color: "primary.main",
-                      "&.Mui-checked": {
-                        color: "primary.main",
-                      },
-                    }}
-                    onChange={handleCategoryChange.bind(null, item.title)}
-                  />
-                  {item.title}
+                  COLLECTIONS
+                </Typography>
+                <Box component={"div"} sx={{ marginY: 2 }}>
+                  {CollectionTitles.map((item) => (
+                    <Box
+                      component={"div"}
+                      key={item.id}
+                      sx={{ display: "flex", alignItems: "center", gap: "5px" }}
+                    >
+                      <Checkbox
+                        sx={{
+                          color: "primary.main",
+                          "&.Mui-checked": {
+                            color: "primary.main",
+                          },
+                        }}
+                        onChange={handleCollectionChange.bind(null, item.title)}
+                      />
+                      {item.title}
+                    </Box>
+                  ))}
                 </Box>
-              ))}
-            </Box>
-            <Typography variant="h6" sx={{ marginLeft: "10px", marginTop: 6 }}>
-              COLLECTIONS
-            </Typography>
-            <Box component={"div"} sx={{ marginY: 2 }}>
-              {CollectionTitles.map((item) => (
-                <Box
-                  component={"div"}
-                  key={item.id}
-                  sx={{ display: "flex", alignItems: "center", gap: "5px" }}
-                >
-                  <Checkbox
-                    sx={{
-                      color: "primary.main",
-                      "&.Mui-checked": {
-                        color: "primary.main",
-                      },
-                    }}
-                    onChange={handleCollectionChange.bind(null, item.title)}
-                  />
-                  {item.title}
-                </Box>
-              ))}
-            </Box>
+              </>
+            )}
           </Box>
         </Grid>
         <Grid container sm={12} md={9} lg={9}>
           {Array.isArray(filteredProducts) &&
-            filteredProducts.slice(((productPage - 1) * 9), productPage * 9)?.map((item: FurnitureType) => (
-              <Grid
-                className="product-item"
-                item
-                xs={12}
-                sm={6}
-                md={6}
-                lg={4}
-                key={item._id}
-                padding={1}
-              >
-                <Link href={`/products/${item._id}`}>
-                  <Box className="product-item-img">
-                    <Image
-                      style={{ objectFit: "cover", borderRadius: "10px" }}
-                      sizes="(max-width: 768px) 100vw, 33vw"
-                      src={item.image}
-                      alt={item.furniture}
-                      priority
-                      fill
-                    />
+            filteredProducts
+              .slice((productPage - 1) * 9, productPage * 9)
+              ?.map((item: FurnitureType) => (
+                <Grid
+                  className="product-item"
+                  item
+                  xs={12}
+                  sm={6}
+                  md={6}
+                  lg={4}
+                  key={item._id}
+                  padding={1}
+                >
+                  <Link href={`/products/${item._id}`}>
+                    <Box className="product-item-img">
+                      <Image
+                        style={{ objectFit: "cover", borderRadius: "10px" }}
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        src={item.image}
+                        alt={item.furniture}
+                        priority
+                        fill
+                      />
+                    </Box>
+                    <Typography sx={{ marginTop: 1 }} variant="subtitle1">
+                      {item.title}
+                    </Typography>
+                    <Box
+                      sx={{ marginTop: 1 }}
+                      component="span"
+                    >{`${item.price}$`}</Box>
+                  </Link>
+                  <Box className="heart-box">
+                    {selectedId?.includes(item._id) ? (
+                      <FavoriteIcon onClick={() => removeFavorites(item._id)} />
+                    ) : (
+                      <FavoriteBorderOutlinedIcon
+                        onClick={() => handleAddFavorites(item._id)}
+                      />
+                    )}
                   </Box>
-                  <Typography sx={{ marginTop: 1 }} variant="subtitle1">
-                    {item.title}
-                  </Typography>
-                  <Box
-                    sx={{ marginTop: 1 }}
-                    component="span"
-                  >{`${item.price}$`}</Box>
-                </Link>
-                <Box className="heart-box">
-                  {selectedId?.includes(item._id) ? (
-                    <FavoriteIcon onClick={() => removeFavorites(item._id)} />
-                  ) : (
-                    <FavoriteBorderOutlinedIcon
-                      onClick={() => handleAddFavorites(item._id)}
-                    />
-                  )}
-                </Box>
-              </Grid>
-            ))}
+                </Grid>
+              ))}
         </Grid>
         <Grid container sm={12} md={3} lg={3}></Grid>
-        <Grid 
-          container 
-          sm={12} 
-          md={9} 
-          lg={9} 
-          sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            marginY: 8 
+        <Grid
+          container
+          sm={12}
+          md={9}
+          lg={9}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            marginY: 8,
           }}
         >
-            <Stack spacing={2}>
-              <Pagination onChange={handlePaginationChange} size="large" page={productPage} count={paginatioCount as number} variant="outlined" shape="rounded" />
-            </Stack>
+          <Stack spacing={2}>
+            <Pagination
+              onChange={handlePaginationChange}
+              size="large"
+              page={productPage}
+              count={paginatioCount as number}
+              variant="outlined"
+              shape="rounded"
+            />
+          </Stack>
         </Grid>
       </Grid>
     </Container>

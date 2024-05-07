@@ -1,0 +1,13 @@
+.middle-skeleton {
+    animation: ske-loading 1s linear infinite alternate;
+}
+
+@keyframes ske-loading {
+    0% {
+        background-color: #d5d5d5;
+    }
+
+    100% {
+        background-color: #c0c0c0;
+    }
+}

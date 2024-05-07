@@ -50,21 +50,21 @@ const SimilarProducts = ({ furniture, productId }: PropsType) => {
     slidesToScroll: 1,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1200,
         settings: {
           slidesToShow: Array.isArray(furnitures) && furnitures?.length < 3 ? furnitures?.length : 3,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 768,
+        breakpoint: 900,
         settings: {
           slidesToShow: Array.isArray(furnitures) && furnitures?.length < 2 ? furnitures?.length : 2,
           slidesToScroll: 1,
         },
       },
       {
-        breakpoint: 500,
+        breakpoint: 600,
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,

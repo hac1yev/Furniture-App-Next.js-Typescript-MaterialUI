@@ -249,6 +249,9 @@ header ul a{
     cursor: pointer;
 }
 
+.MuiBadge-badge {
+    color: #fff;
+}
 
 @media screen and (min-width: 767px) {
 
@@ -286,6 +289,10 @@ header ul a{
 
 
 @media screen and (max-width: 767px){
+
+    .desktop-shopping {
+        display: none;
+    }
 
     .shop-img , .user-img, .header-left {
         display: none;

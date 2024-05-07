@@ -4,12 +4,27 @@ import { Box, Button, Container, Grid, TextField, Typography } from '@mui/materi
 import '../../components/Contact/Contact.css';
 import { useState } from 'react';
 import Image from 'next/image';
+import PageNavigations from '@/components/PageNavigations/PageNavigations';
 
 const Contact = () => {
     const [fullName,setFullName] = useState('');
     const [email,setEmail] = useState('');
     const [theme,setTheme] = useState('');
     const [message,setMessage] = useState('');
+
+    const navigation_data = [
+        {
+            id: "p1",
+            title: "Home",
+            pathname: "/",
+        },
+        {
+            id: "p2",
+            title: "Contact",
+            pathname: "/contact",
+        },
+    ];
+    
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -45,7 +60,8 @@ const Contact = () => {
             maxWidth={false} 
             sx={{ marginTop: 8, marginBottom: 5, width: "90%" }}
         >
-            <Grid container spacing={3}>
+            <PageNavigations arr={navigation_data} />
+            <Grid container spacing={3} sx={{ marginY: 6 }}>
                 <Grid item xs={12} lg={6}>
                     <Box component="form" onSubmit={handleSubmit}>
                         <Typography variant='h3'>CONTACT</Typography>

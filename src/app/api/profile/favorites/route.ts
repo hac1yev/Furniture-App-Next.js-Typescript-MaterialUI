@@ -12,8 +12,6 @@ export async function GET(req: Request) {
 
     const populate = await userFavorites.populate('favorites');
 
-    console.log(populate.favorites);
-
     if(userFavorites) {
         return Response.json({ favorites: populate.favorites });
     }else{

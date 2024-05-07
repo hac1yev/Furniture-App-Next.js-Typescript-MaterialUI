@@ -57,6 +57,26 @@ const ProductDetail = ({ params }: ParamsType) => {
     }
   };
 
+  const addToCart = async () => {
+    try {
+      const response = await fetch(`/api/products/${id}/add-to-cart`, {
+        method: 'POST',
+        body: JSON.stringify({
+          count
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+
+      console.log(data);
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
   
   return (
       <Container
@@ -119,14 +139,14 @@ const ProductDetail = ({ params }: ParamsType) => {
                   >
                     BUY NOW
                   </Button>
-                  <Button variant="outlined" size="large" sx={{ width: '50%', borderRadius: '10px', fontSize: '16px' }}>
+                  <Button onClick={addToCart} variant="outlined" size="large" sx={{ width: '50%', borderRadius: '10px', fontSize: '16px' }}>
                     ADD TO CART
                   </Button>
                 </Box>
               </Grid>
             </Grid>
           </Box>
-        <SimilarProducts furniture={productData.furniture} productId={id}  />
+          <SimilarProducts furniture={productData.furniture} productId={id}  />
         </>}
       </Container> 
   );
