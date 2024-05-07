@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { Suspense, useState } from 'react';
 import './Header.css';
 import { useSession } from 'next-auth/react';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Search from './Search';
@@ -15,28 +14,8 @@ const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [openSearch,setOpenSearch] = useState(false);
 
-    const searchParams = useSearchParams(); 
-    const router = useRouter();
-
     const handleClick = () => {
         setOpenMenu(prev => !prev)
-    };
-
-    const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const data = new FormData(e.currentTarget);
-
-        const searchText = data.get("search");
-
-        const params = new URLSearchParams(searchParams);  
-
-        if(typeof searchText === 'string') {
-            params.set("q", searchText);
-            params.set("page", "1");
-        }
-
-        router.push(`/search?${params}`);
-        setOpenSearch(false);
     };
 
     return (
@@ -154,7 +133,7 @@ const Header = () => {
                 </nav>
             </header>
             <Suspense fallback={<div>Loading...</div>}>
-                <Search openSearch={openSearch} handleSearchSubmit={handleSearchSubmit} setOpenSearch={setOpenSearch} />
+                <Search openSearch={openSearch} setOpenSearch={setOpenSearch} />
             </Suspense>
         </> 
   )
