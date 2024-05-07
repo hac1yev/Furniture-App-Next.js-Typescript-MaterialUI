@@ -4,6 +4,9 @@ const nextConfig = {
         domains: ['i.imgur.com'],
     },
     reactStrictMode: false,
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
+    },
 };
 
 
