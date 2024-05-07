@@ -2,12 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import './Header.css';
 import { useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Search from './Search';
 
 const Header = () => {    
     const {data: session} = useSession();
@@ -152,15 +153,9 @@ const Header = () => {
                     </ul>
                 </nav>
             </header>
-            <div className={openSearch ? 'search-overlay' : 'hide-search-overlay'}>
-                <form className='search-form' onSubmit={handleSearchSubmit}>
-                    <input type="text" name='search' placeholder='SEARCH OUR STORE' />
-                    <button>
-                        <Image width={20} height={20} className='search-icon' src='/header/search.svg' alt="search-icon" />
-                    </button>
-                    <Image width={20} height={20} src='/header/close-img.svg' className='search-close' onClick={() => setOpenSearch(false)} alt="close-icon" />
-                </form>
-            </div>
+            <Suspense>
+                <Search openSearch={openSearch} handleSearchSubmit={handleSearchSubmit} setOpenSearch={setOpenSearch} />
+            </Suspense>
         </> 
   )
 }
