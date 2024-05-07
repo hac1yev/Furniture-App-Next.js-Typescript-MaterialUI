@@ -14,6 +14,7 @@ import PageNavigations from "@/components/PageNavigations/PageNavigations";
 import SortIcon from "@mui/icons-material/Sort";
 import { navigation_data, CollectionTitles, CategoryTitles } from "@/dummy_data/data";
 import useFavorites from "@/hooks/useFavorites";
+import ProductsPagination from "./ProductsPagination";
 
 type FurnitureType = {
   _id: string;
@@ -190,17 +191,8 @@ const AllProducts = () => {
       filteredProducts.sort((a, b) => b.price - a.price);
   }
 
-  let paginatioCount =
+  let paginationCount =
     Array.isArray(filteredProducts) && Math.ceil(filteredProducts.length / 9);
-
-  const handlePaginationChange = async (
-    e: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    const params = new URLSearchParams(searchParams);
-    params.set("page", `${value}`);
-    router.push(`/products?${params}`);
-  };
 
   if (!furnitures) {
     return (
@@ -413,16 +405,7 @@ const AllProducts = () => {
           }}
         >
           <Suspense fallback={<p>Loading...</p>}>
-            <Stack spacing={2}>
-              <Pagination
-                onChange={handlePaginationChange}
-                size="large"
-                page={productPage}
-                count={paginatioCount as number}
-                variant="outlined"
-                shape="rounded"
-              />
-            </Stack>
+            <ProductsPagination paginationCount={paginationCount} productPage={productPage} />
           </Suspense>
         </Grid>
       </Grid>
