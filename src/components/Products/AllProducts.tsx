@@ -2,7 +2,7 @@
 
 import React, { Suspense, useEffect, useReducer, useState } from "react";
 import "../../components/Home/Products/Products.css";
-import { Box, Button, Checkbox, Container, Grid, Pagination, Stack, Typography, useMediaQuery } from "@mui/material";
+import { Box, Button, Checkbox, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
