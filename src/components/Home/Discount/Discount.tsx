@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Button, Typography } from '@mui/material';
 import './Discount.css';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';

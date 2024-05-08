@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, Grid, Typography } from "@mui/material";
 import './LazyLoading.css';
 

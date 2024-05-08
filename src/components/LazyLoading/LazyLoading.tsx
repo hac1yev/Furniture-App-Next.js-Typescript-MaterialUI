@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+
 import './LazyLoading.css';
 import { Box, Grid, Typography } from '@mui/material';
 

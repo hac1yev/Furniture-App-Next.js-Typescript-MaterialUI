@@ -1,5 +1,6 @@
+"use client";
+
 import { Box, Button, TextField } from "@mui/material";
-import { title } from "process";
 import { useState } from "react";
 
 const AddFurniture = () => {

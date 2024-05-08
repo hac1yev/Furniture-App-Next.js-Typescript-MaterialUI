@@ -1,3 +1,5 @@
+"use client";
+
 import { Pagination, Stack } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";

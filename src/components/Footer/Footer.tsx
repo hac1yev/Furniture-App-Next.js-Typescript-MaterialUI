@@ -1,4 +1,3 @@
-import { CssBaseline } from '@mui/material';
 import './Footer.css';
 
 const Footer = () => {

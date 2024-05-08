@@ -1,3 +1,5 @@
+"use client";
+
 import { favoriteSliceAction } from "@/store/favorite-slice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
