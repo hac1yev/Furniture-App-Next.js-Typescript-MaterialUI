@@ -3,7 +3,7 @@
 import '../Products/Products.css';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import dynamic from 'next/dynamic';
-import { PopularPreloader } from '@/components/LazyLoading/LazyLoading';
+import PopularPreloader from '@/components/LazyLoading/LazyLoading';
 
 const PopularItems = dynamic(() => import("./PopularItems"), {
   ssr: false,

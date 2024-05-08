@@ -2,7 +2,7 @@
 
 import './Products.css';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { Preloader } from '@/components/LazyLoading/LazyLoading';
+import Preloader from '@/components/LazyLoading/LazyLoading';
 import dynamic from 'next/dynamic';
 
 const ProductItems = dynamic(() => import("./ProductItems"), {
