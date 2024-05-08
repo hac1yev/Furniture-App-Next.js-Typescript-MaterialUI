@@ -1,4 +1,4 @@
-import { Box, Button, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 const SummaryCheckout = () => {
     const summaryStyle = {
