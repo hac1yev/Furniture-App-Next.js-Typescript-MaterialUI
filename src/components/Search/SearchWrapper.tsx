@@ -1,3 +1,5 @@
+"use client";
+
 import { Container, Typography } from '@mui/material';
 
 import SearchResult from '@/components/Search/SearchResult';
