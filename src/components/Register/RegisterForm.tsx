@@ -2,13 +2,16 @@
 
 import { Box, Button, Grid, TextField } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const navigate = useRouter();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     try {
-        await fetch('/api/auth/register', {
+        const response = await fetch('/api/auth/register', {
             method: 'POST',
             body: JSON.stringify({
                 firstName: data.get("firstName"),
@@ -17,6 +20,13 @@ const RegisterForm = () => {
                 password: data.get("password")
             })
         });
+
+        const { status } = await response.json();
+
+        if(status === 201) {
+          navigate.push("/login")
+        }
+        
     } catch (error) {
         console.log(error);
     }
