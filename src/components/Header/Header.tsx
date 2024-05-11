@@ -2,17 +2,37 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import './Header.css';
 import { useSession } from 'next-auth/react';
 import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Search from './Search';
+import { useDispatch, useSelector } from 'react-redux';
+import { shoppingSliceActions } from '@/store/shopping-slice';
 
 const Header = () => {    
     const {data: session} = useSession();
     const [openMenu, setOpenMenu] = useState(false);
     const [openSearch,setOpenSearch] = useState(false);
+    const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);    
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async function() {
+            try {
+                const response = await fetch("/api/shopping");
+
+                const {data} = await response.json();
+
+                dispatch(shoppingSliceActions.getAllShoppingProducts({ products: data.products, isLoading: false  }));
+                
+            } catch (error) {
+                console.log(error);
+                
+            }
+        })()
+    }, [dispatch]);
 
     const handleClick = () => {
         setOpenMenu(prev => !prev)
@@ -29,24 +49,21 @@ const Header = () => {
                     <div className="logo"><Link href="/"><strong>HomeDecor</strong></Link></div>
                     <div className='header-right'>
                         <Link href={"/shopping-cart"} className='desktop-shopping'>
-                            <Badge badgeContent={4} color={"primary"} >
+                            <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
                         </Link>
-                        {!session && <Link href='/login'>
+                        <Link href={!session ? '/login' : '/profile'}>
                             <Image width={20} height={20} className='user-img' src='/header/user-icon.svg' alt="user" />
-                        </Link>}
-                        {session && <Link href='/profile'>
-                            <Image width={20} height={20} className='user-img' src='/header/user-icon.svg' alt="user" />
-                        </Link>}
+                        </Link>
                     </div>
                     <div className="burger">
                         <Link href={"/shopping-cart"}>
-                            <Badge badgeContent={4} color={"primary"} >
+                            <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
                         </Link>
-                        <Image width={20} height={20} className='mobile-search-icon' src='/header/search.svg' alt="search-icon" />
+                        <Image onClick={() => setOpenSearch(true)} width={20} height={20} className='mobile-search-icon' src='/header/search.svg' alt="search-icon" />
                         <Image width={20} height={20} onClick={handleClick} src='/header/hamburger.svg' alt="hamburger-icon" />
                     </div>
                 </div>
@@ -87,12 +104,14 @@ const Header = () => {
                 <nav className={openMenu ? "mobile-menu" : "mobile-menu deactive-mobile-menu"} id='mobile_menu'>
                     <div className='header-top'>
                         <div className='header-mobile-left'>
-                            <Badge badgeContent={4} color="secondary">
+                        <Link href={"/shopping-cart"} onClick={handleClick}>
+                            <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
-                            <Link href="/login">
-                                <Image width={20} height={20} src='/header/user-icon.svg' alt="user-icon" />
-                            </Link>
+                        </Link>
+                        <Link onClick={handleClick} href={!session ? '/login' : '/profile'}>
+                            <Image width={20} height={20} src='/header/user-icon.svg' alt="user-icon" />
+                        </Link>
                         </div>
                         <div className="mobile-close">
                             <Image width={20} height={20} onClick={handleClick} src='/header/close-img.svg' alt="close-icon" />

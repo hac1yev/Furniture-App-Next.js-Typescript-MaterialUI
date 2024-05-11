@@ -1,0 +1,50 @@
+.box {
+    margin: 0 auto;
+    width: 60px;
+    height: 60px;
+}
+
+.loader-05 {
+    width: 100%;
+    height: 100%;
+	border: .2em solid #ebeae9;
+	border-top-color: #B8926A;
+	border-radius: 50%;
+	animation: 1s loader-05 linear infinite;
+	position: relative;
+	&:before {
+		content: '';
+		display: block;
+		width: inherit;
+		height: inherit;
+		position: absolute;
+		top: -.2em;
+		;
+		left: -.2em;
+		;
+		border: .2em solid currentcolor;
+		border-radius: 50%;
+		opacity: .5;
+	}
+}
+
+@keyframes loader-05 {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+    background-color: #B8926A!important;
+}
+
+div:where(.swal2-container).swal2-center>.swal2-popup {
+    background: rgba(234, 230, 223, 1);
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
+    box-shadow: 0 0 0 3px rgb(235, 209, 165)!important;
+}

@@ -7,24 +7,14 @@ import { useEffect, useState } from "react";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import '../Home/Products/Products.css';
 import useFavorites from "@/hooks/useFavorites";
-
-type FurnitureType = {
-    _id: string,
-    description: string,
-    price: number,
-    furniture: string,
-    image: string
-  };
-  
-  type AllFurnituresType = {
-    furnitures: FurnitureType[],
-    length: number;
-  };
+import { useDispatch, useSelector } from "react-redux";
+import { favoriteSliceAction } from "@/store/favorite-slice";
 
 const MyFavoriteProducts = () => {
-    const [myFavProducts,setMyFavProducts] = useState<AllFurnituresType | null>(null);
+    const myFavProducts = useSelector((state: any) => state.favoriteReducer.allFavorites);
     const { removeFavorites } = useFavorites();
     const [isLoading,setIsLoading] = useState(true);
+    const dispatch = useDispatch();    
 
     useEffect(() => {
         const fetchFavoriteProducts = async () => {
@@ -32,25 +22,21 @@ const MyFavoriteProducts = () => {
                 const response = await fetch("/api/profile/favorites");
                 const { favorites } = await response.json();
 
-                setMyFavProducts(favorites);
+                dispatch(favoriteSliceAction.getAllFavorites(favorites));
             } catch (error) {
                 console.log(error);
-                setMyFavProducts(null);
             }
             setIsLoading(false);
         };
 
         fetchFavoriteProducts();
-    }, []);
+    }, [dispatch]);
 
     if(isLoading) {
         return (
             <Typography variant="subtitle1" style={{ textAlign: 'center' }}>Loading...</Typography>
         )
     }
-
-    console.log("isLoading", isLoading);
-    console.log("myFavProducts", myFavProducts);
     
     if(!isLoading && myFavProducts?.length === 0) {
         return (

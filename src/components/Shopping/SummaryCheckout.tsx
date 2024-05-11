@@ -1,8 +1,35 @@
 "use client";
 
 import { Box, Button, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
+
+type ProductType = {
+    _id: string;
+    title: string;
+    price: number;
+    image: string;
+};
+
+type MyShoppingProductsType = {
+    _id: number;
+    product: ProductType;
+    count: number;
+};
 
 const SummaryCheckout = () => {
+    const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
+    
+    let totalCount = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
+        total += item?.count;
+        return total;
+    }, 0);
+
+
+    let totalPrice = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
+        total += (item?.product?.price * item?.count);
+        return total;
+    }, 0);
+
     const summaryStyle = {
         display: 'flex', 
         flexDirection: 'column', 
@@ -18,11 +45,11 @@ const SummaryCheckout = () => {
             <Typography variant="h4">SUMMARY</Typography>
             <Box component={"div"} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography>ITEM COUNT</Typography>
-                <Typography>4</Typography>
+                <Typography sx={{ fontWeight: "700", fontSize: '20px' }}>{totalCount}</Typography>
             </Box>
             <Box component={"div"} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography>TOTAL PRICE</Typography>
-                <Typography>450$</Typography>
+                <Typography sx={{ fontWeight: "700", fontSize: '20px' }}>{totalPrice}$</Typography>
             </Box>
             <Button 
                 size="large"

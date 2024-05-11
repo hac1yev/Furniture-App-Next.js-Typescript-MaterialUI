@@ -5,7 +5,10 @@ import SimilarProducts from "@/components/Products/SimilarProducts";
 import { Box, Button, Container, Grid, Typography, useMediaQuery } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { navigation_data } from "@/dummy_data/data";
+import { useDispatch } from "react-redux";
+import { shoppingSliceActions } from "@/store/shopping-slice";
+import Swal from 'sweetalert2';
+import '../../../components/Products/Product.css'
 
 type ParamsType = {
   params: {
@@ -24,12 +27,31 @@ type ProductDataType = {
 };
 
 const ProductDetail = ({ params }: ParamsType) => {
+
   const matches = useMediaQuery('(max-width:899.5px)');
   const [count,setCount] = useState(1);
+  const dispatch = useDispatch();
 
   const { id } = params;  
   const [productData,setProductData] = useState<ProductDataType | null>(null);
 
+  const navigation_data = [
+    {
+      id: "p1",
+      title: "Home",
+      pathname: "/",
+    },
+    {
+      id: "p2",
+      title: "Products",
+      pathname: "/products",
+    },
+    {
+      id: "p3",
+      title: `${productData?.title}`,
+      pathname: `/products/${id}`,
+    },
+  ];
 
   useEffect(() => {
     (async function getProductDetail() {
@@ -39,7 +61,6 @@ const ProductDetail = ({ params }: ParamsType) => {
         const { data } = await response.json();
 
         setProductData(data);
-        console.log("ilkin");
         
       } catch (error) {
         console.log(error);
@@ -59,6 +80,20 @@ const ProductDetail = ({ params }: ParamsType) => {
 
   const addToCart = async () => {
     try {
+      Swal.fire({
+        title: 'Please Wait !',
+        html: `
+          <div style="height: 90px; display: flex!important; align-items: center;">
+            <div class="box">
+              <div class="loader-05"></div>
+            </div>
+          </div>
+        `
+        ,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+      });
+
       const response = await fetch(`/api/products/${id}/add-to-cart`, {
         method: 'POST',
         body: JSON.stringify({
@@ -69,14 +104,24 @@ const ProductDetail = ({ params }: ParamsType) => {
         }
       });
 
-      const data = await response.json();
+      const { products } = await response.json(); 
+      dispatch(shoppingSliceActions.getAllShoppingProducts({ products, isLoading: false  }));
 
-      console.log(data);
-      
+      Swal.fire(
+        `${'Product added to cart.'}`,
+        '',
+        'success'
+      );
     } catch (error) {
       console.log(error);
     }
   };
+
+  if(!productData) {
+    return (
+      <Typography variant="subtitle1" sx={{ textAlign: 'center', marginY: 4 }}>Loading...</Typography>
+    );
+  }
   
   return (
       <Container

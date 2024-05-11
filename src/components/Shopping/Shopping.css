@@ -14,6 +14,10 @@
     border-radius: 10px;
 }
 
+.shopping-item:hover {
+    background-color: #dbdbdb;
+}
+
 .shop-close-icon {
     width: 26px;
     height: 26px;

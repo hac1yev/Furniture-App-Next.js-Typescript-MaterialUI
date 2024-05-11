@@ -4,7 +4,19 @@ import PageNavigations from "@/components/PageNavigations/PageNavigations";
 import ProfileBody from "@/components/ProfileBody/ProfileBody";
 import { CssBaseline } from "@mui/material";
 import Container from "@mui/material/Container";
-import { navigation_data } from "@/dummy_data/data";
+
+const navigation_data = [
+  {
+    id: "p1",
+    title: "Home",
+    pathname: "/",
+  },
+  {
+    id: "p2",
+    title: "Profile",
+    pathname: "/profile",
+  },
+];
 
 const ProfileWrapper = () => {
   return (

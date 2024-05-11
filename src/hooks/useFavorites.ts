@@ -36,7 +36,7 @@ const useFavorites = () => {
                 'Content-Type': 'application/json'
             }
         });
-
+        
         dispatch(favoriteSliceAction.removeFavorites(id));    
     };
 
