@@ -14,7 +14,7 @@ export async function POST(req: Request) {
         method: 'POST',
         headers: {
           Authorization: `Client-ID 93656fa060b22a7`, // Replace with your Imgur client ID
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', 
         },
         body: JSON.stringify({
           image: binaryData.toString('base64'),
