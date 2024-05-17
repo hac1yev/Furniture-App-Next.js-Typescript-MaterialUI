@@ -52,7 +52,7 @@ const CollectionWrapper = () => {
                   style={{ objectFit: "cover", borderRadius: "10px" }}
                   sizes="(max-width: 768px) 100vw, 33vw"
                   src={collection.img}
-                  alt={""}
+                  alt={"collection"}
                   priority
                   fill
                 />

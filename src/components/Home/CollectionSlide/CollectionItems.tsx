@@ -54,7 +54,7 @@ const CollectionItems = () => {
                                 style={{objectFit: "cover", borderRadius: '10px'}} 
                                 sizes="(max-width: 768px) 100vw, 33vw" 
                                 src={item.img} 
-                                alt={""} 
+                                alt={"collection-item"} 
                                 priority
                                 fill 
                             />
