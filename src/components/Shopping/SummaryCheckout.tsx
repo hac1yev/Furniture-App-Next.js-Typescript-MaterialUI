@@ -1,7 +1,9 @@
 "use client";
 
+import { shoppingSliceActions } from "@/store/shopping-slice";
 import { Box, Button, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
+import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 
 type ProductType = {
     _id: string;
@@ -18,7 +20,8 @@ type MyShoppingProductsType = {
 
 const SummaryCheckout = () => {
     const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
-    
+    const dispatch = useDispatch();
+
     let totalCount = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
         total += item?.count;
         return total;
@@ -27,7 +30,7 @@ const SummaryCheckout = () => {
 
     let totalPrice = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
         total += (item?.product?.price * item?.count);
-        return total;
+        return total;   
     }, 0);
 
     const summaryStyle = {
@@ -62,8 +65,11 @@ const SummaryCheckout = () => {
                         opacity: 0.8
                     } 
                 }} 
+                onClick={() => dispatch(shoppingSliceActions.getOneItemPrice(0))}
             >
-                CHECKOUT
+                <Link href="/checkout">
+                    CHECKOUT
+                </Link>
             </Button>
         </Box>
     );

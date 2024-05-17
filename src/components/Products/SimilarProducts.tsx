@@ -155,6 +155,9 @@ const SimilarProducts = ({ furniture, productId }: PropsType) => {
             </Grid>
           ))}
       </Slider>
+      {(Array.isArray(furnitures) && furnitures.length === 0) && (
+        <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>There is no similar product!</Typography>
+      )}
     </>
   );
 };

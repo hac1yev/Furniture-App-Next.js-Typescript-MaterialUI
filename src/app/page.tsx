@@ -1,5 +1,6 @@
 "use client"
 
+import About from "@/components/Home/About/About";
 import CollectionSlide from "@/components/Home/CollectionSlide/CollectionSlide";
 import Discount from "@/components/Home/Discount/Discount";
 import Hero from "@/components/Home/Hero/Hero";
@@ -14,6 +15,7 @@ export default function Home() {
     <>  
       <Hero />
       <CollectionSlide />
+      <About />
       <Discount />
       <Products addFavorites={addFavorites} removeFavorites={removeFavorites} />
       <Popular addFavorites={addFavorites} removeFavorites={removeFavorites} />

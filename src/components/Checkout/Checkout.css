@@ -1,0 +1,41 @@
+.StripeElement {
+	background-color: transparent;
+	/* padding: 10px; */
+	border: 1px solid #84827E;
+    padding: 16.5px 14px;
+    border-radius: 5px;
+}
+
+.StripeElement--empty {
+    border-color: #84827E;
+}
+
+/* Set styling when form field data is invalid */
+.StripeElement--invalid {
+    background-color: #f9d4d4;
+    border-color: #b22222;
+}
+
+.StripeElement .inputElement::placeholder {
+    color: red;
+}
+
+/* Set styling when form field data is completed and valid */
+.StripeElement--complete {
+    background-color: #00800015;
+}
+
+/* Set credit card number input field width */
+form.pmpro_form #pmpro_payment_information_fields div#AccountNumber {
+	max-width: 270px;
+}
+
+/* Set expiry date input field width */
+form.pmpro_form #pmpro_payment_information_fields div#Expiry {
+	max-width: 110px;
+}
+
+/* Set CVC/CVV input field width */
+form.pmpro_form #pmpro_payment_information_fields div#CVV {
+	max-width: 110px;
+}

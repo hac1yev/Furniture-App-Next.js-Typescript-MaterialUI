@@ -25,3 +25,16 @@
     display: flex;
     justify-content: center;
 }
+
+
+.collections-header {
+    max-width: 330px;
+    width: 100%;
+    position: relative;
+}
+
+@media screen and (max-width: 599.5px) {
+    .collections-header {
+        margin: 0 auto;
+    }
+}

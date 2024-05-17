@@ -1,6 +1,6 @@
 "use client";
 
-import SliderPreloader from "@/components/LazyLoading/LazyLoading";
+import SliderPreloader from "@/components/LazyLoading/SliderPreloader";
 import { Container } from "@mui/material";
 import dynamic from "next/dynamic";
 

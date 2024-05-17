@@ -1,6 +1,9 @@
+"use client";
+
+import { loadingSliceActions } from "@/store/loading-slice";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import { useDispatch } from "react-redux";
 
 type SearchType = {
   openSearch: boolean;
@@ -10,9 +13,13 @@ type SearchType = {
 const Search = ({ openSearch, setOpenSearch }: SearchType) => {
   const searchParams = useSearchParams();
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    dispatch(loadingSliceActions.itIsLoading(true));
+
     const data = new FormData(e.currentTarget);
 
     const searchText = data.get("search");

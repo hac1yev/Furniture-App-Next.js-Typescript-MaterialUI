@@ -16,11 +16,13 @@ type MyShoppingProductsType = {
 interface RootState<T> {
     myShoppingProducts: T[];
     isLoading: boolean;
+    oneItemPrice: null | number;
 }
 
 const initialState: RootState<MyShoppingProductsType> = {
     myShoppingProducts: [],
-    isLoading: true
+    isLoading: true,
+    oneItemPrice: null
 };
 
 export const shoppingSlice = createSlice({
@@ -48,6 +50,9 @@ export const shoppingSlice = createSlice({
                 state.myShoppingProducts[findedProductIndex].count -= 1;
             }
         },
+        getOneItemPrice(state,action) {
+            state.oneItemPrice = action.payload;
+        }
     },
 });
 

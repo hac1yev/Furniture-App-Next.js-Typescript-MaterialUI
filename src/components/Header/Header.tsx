@@ -25,7 +25,7 @@ const Header = () => {
 
                 const {data} = await response.json();
 
-                dispatch(shoppingSliceActions.getAllShoppingProducts({ products: data.products, isLoading: false  }));
+                dispatch(shoppingSliceActions.getAllShoppingProducts({ products: data?.products, isLoading: false  }));
                 
             } catch (error) {
                 console.log(error);
@@ -81,17 +81,12 @@ const Header = () => {
                         </li>
                         <li>
                             <Link href="/products">
-                                Product
+                                Products
                             </Link>
                         </li>
                         <li>
                             <Link href="/collections">
                                 Collections
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/sale">
-                                Sale
                             </Link>
                         </li>
                         <li>
@@ -130,17 +125,12 @@ const Header = () => {
                         </li>
                         <li>
                             <Link href="/products" onClick={handleClick}>
-                                Product
+                                Products
                             </Link>
                         </li>
                         <li>
                             <Link href="/collections" onClick={handleClick}>
                                 Collections
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/sale" onClick={handleClick}>
-                                Sale
                             </Link>
                         </li>
                         <li>

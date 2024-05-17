@@ -9,6 +9,9 @@ import { useDispatch } from "react-redux";
 import { shoppingSliceActions } from "@/store/shopping-slice";
 import Swal from 'sweetalert2';
 import '../../../components/Products/Product.css'
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type ParamsType = {
   params: {
@@ -27,6 +30,8 @@ type ProductDataType = {
 };
 
 const ProductDetail = ({ params }: ParamsType) => {
+  const session = useSession();
+  const route = useRouter();  
 
   const matches = useMediaQuery('(max-width:899.5px)');
   const [count,setCount] = useState(1);
@@ -79,6 +84,11 @@ const ProductDetail = ({ params }: ParamsType) => {
   };
 
   const addToCart = async () => {
+    if(!session.data) {
+      route.push("/login");
+      return;
+    }
+
     try {
       Swal.fire({
         title: 'Please Wait !',
@@ -181,8 +191,9 @@ const ProductDetail = ({ params }: ParamsType) => {
                         bgcolor: 'rgb(184, 146, 106, 0.9)'
                       }
                     }}
+                    onClick={() => dispatch(shoppingSliceActions.getOneItemPrice(productData.price * count))}
                   >
-                    BUY NOW
+                    <Link href="/checkout">BUY NOW</Link>
                   </Button>
                   <Button onClick={addToCart} variant="outlined" size="large" sx={{ width: '50%', borderRadius: '10px', fontSize: '16px' }}>
                     ADD TO CART

@@ -1,0 +1,14 @@
+/* .about-img img {
+    transform: scale(1.1);
+} */
+
+@media screen and (max-width: 900px) {
+    .about-grid {
+        height: 400px;
+    }
+}
+@media screen and (max-width: 600px) {
+    .about-grid {
+        height: 300px;
+    }
+}
