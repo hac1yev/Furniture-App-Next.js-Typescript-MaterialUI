@@ -13,7 +13,7 @@ export async function POST(req: Request) {
       const response = await fetch('https://api.imgur.com/3/image', {
         method: 'POST',
         headers: {
-          Authorization: `Client-ID 93656fa060b22a7`, // Replace with your Imgur client ID
+          Authorization: `Client-ID ${process.env.IMGUR_CLIENT_ID}`, // Replace with your Imgur client ID
           'Content-Type': 'application/json', 
         },
         body: JSON.stringify({

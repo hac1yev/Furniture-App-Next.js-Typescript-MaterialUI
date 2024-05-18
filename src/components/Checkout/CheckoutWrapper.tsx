@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import { StripeElementLocale, StripeElementsOptions, loadStripe } from "@stripe/stripe-js";
 import PaymentForm from "./PaymentForm";
 
-const stripePromise = loadStripe("pk_test_51P7bNhLcyE8tQLhfW4dRsu8uvp3JK8wEduoNZ4nYsWrtwIFj59QLNlFBApsuQflCAfpUiLJ9KrIFrjRoj3iHSYOW00WFljuaW8");
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export default function CheckoutWrapper() {
 
