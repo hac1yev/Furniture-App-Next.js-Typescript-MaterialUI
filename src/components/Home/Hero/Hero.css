@@ -89,7 +89,7 @@
     }
 
     .hero-section > div {
-
+        gap: 10px;
     }
 
     .hero-content h1 {

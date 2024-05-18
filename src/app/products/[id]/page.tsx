@@ -31,7 +31,7 @@ type ProductDataType = {
 
 const ProductDetail = ({ params }: ParamsType) => {
   const session = useSession();
-  const route = useRouter();  
+  const route = useRouter();    
 
   const matches = useMediaQuery('(max-width:899.5px)');
   const [count,setCount] = useState(1);
@@ -127,6 +127,15 @@ const ProductDetail = ({ params }: ParamsType) => {
     }
   };
 
+  const handleBuy = (price: number) => {
+    if(session.data) {
+      dispatch(shoppingSliceActions.getOneItemPrice(price));
+    }else{
+      route.push("/login");
+      return;
+    }
+  };
+
   if(!productData) {
     return (
       <Typography variant="subtitle1" sx={{ textAlign: 'center', marginY: 4 }}>Loading...</Typography>
@@ -191,7 +200,7 @@ const ProductDetail = ({ params }: ParamsType) => {
                         bgcolor: 'rgb(184, 146, 106, 0.9)'
                       }
                     }}
-                    onClick={() => dispatch(shoppingSliceActions.getOneItemPrice(productData.price * count))}
+                    onClick={handleBuy.bind(null, productData.price * count)}
                   >
                     <Link href="/checkout">BUY NOW</Link>
                   </Button>

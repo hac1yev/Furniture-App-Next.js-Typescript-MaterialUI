@@ -4,6 +4,7 @@ footer {
     align-items: center;
     justify-content: center;
     padding: 50px 0 30px 0;
+    font-family: Didot;
 }
 
 footer h1,
@@ -15,6 +16,11 @@ footer p {
 .footer-col {
     display: flex;
     justify-content: center;
+}
+
+.footer-col p {
+    margin: 0 auto;
+    text-align: center;
 }
 
 .footer-copyright {
@@ -33,6 +39,6 @@ footer p {
 @media screen and (max-width: 991.5px) {
     .footer-col {
         justify-content: flex-start;
-        margin-top: 15px;
+        margin-top: 8px;
     }
 }

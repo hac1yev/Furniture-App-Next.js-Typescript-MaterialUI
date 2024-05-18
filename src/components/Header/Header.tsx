@@ -16,7 +16,7 @@ const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const [openSearch,setOpenSearch] = useState(false);
     const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);    
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();    
 
     useEffect(() => {
         (async function() {
@@ -48,7 +48,7 @@ const Header = () => {
                     </div>
                     <div className="logo"><Link href="/"><strong>HomeDecor</strong></Link></div>
                     <div className='header-right'>
-                        <Link href={"/shopping-cart"} className='desktop-shopping'>
+                        <Link href={!session ? '/login' : '/shopping-cart'} className='desktop-shopping'>
                             <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
@@ -58,7 +58,7 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className="burger">
-                        <Link href={"/shopping-cart"}>
+                        <Link href={!session ? '/login' : '/shopping-cart'}>
                             <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
@@ -99,7 +99,7 @@ const Header = () => {
                 <nav className={openMenu ? "mobile-menu" : "mobile-menu deactive-mobile-menu"} id='mobile_menu'>
                     <div className='header-top'>
                         <div className='header-mobile-left'>
-                        <Link href={"/shopping-cart"} onClick={handleClick}>
+                        <Link href={!session ? '/login' : '/shopping-cart'} onClick={handleClick}>
                             <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>

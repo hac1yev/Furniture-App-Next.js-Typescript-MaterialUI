@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import './Hero.css';
-import { Box, Button, Container, Grid } from '@mui/material';
+import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
+import Link from 'next/link';
 
 const Hero = () => {
     const [imgChange,setImgChange] = useState(false);    
@@ -29,15 +30,17 @@ const Hero = () => {
             <Grid container sx={{ height: '100%' }} className="row mx-0">
                 <Grid item xs={12} lg={4} className="hero-content-col">
                     <Box className='hero-content'>
-                        <h1>THE FURNITURE THAT DEFINES YOU</h1>
-                        <p>
+                        <Typography variant="h1">THE FURNITURE THAT DEFINES YOU</Typography>
+                        <Typography variant="subtitle2">
                             At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis 
                             praesentium voluptatum
-                        </p>
-                        <Button>
-                            <LocalGroceryStoreIcon />
-                            SHOP NOW
-                        </Button>
+                        </Typography>
+                        <Link href="/products">
+                            <Button>
+                                <LocalGroceryStoreIcon />
+                                SHOP NOW
+                            </Button>
+                        </Link>
                     </Box>
                 </Grid>
                 <Grid item xs={12} lg={8} className="hero-img-col">

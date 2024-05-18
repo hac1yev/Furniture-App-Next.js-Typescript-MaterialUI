@@ -58,18 +58,17 @@ const ContactWrapper = () => {
         <Container
             component="div" 
             maxWidth={false} 
-            sx={{ marginTop: 8, marginBottom: 5, width: "90%" }}
+            sx={{ marginTop: 8, marginBottom: 5, width: "100%" }}
         >
             <PageNavigations arr={navigation_data} />
-            <Grid item xs={12} sm={6} md={4} lg={3} padding={1}>
+            <Grid item xs={12} sm={6} md={4} lg={3} padding={1} sx={{ marginTop: 3 }}>
                 <Box className="product-title-item">
-                    <Typography variant="h3" className={"products-header"}>MOST POPULAR</Typography>
+                    <Typography variant="h3" className={"products-header"}>CONTACT</Typography>
                 </Box>
             </Grid>
-            <Grid container spacing={3} sx={{ marginY: 6 }}>
+            <Grid container spacing={3}>
                 <Grid item xs={12} lg={6}>
                     <Box component="form" onSubmit={handleSubmit}>
-                        <Typography variant='h3'>CONTACT</Typography>
                         <TextField
                             margin="dense"
                             type="text"
@@ -98,6 +97,9 @@ const ContactWrapper = () => {
                             value={theme}
                         />
                         <TextField
+                            multiline
+                            rows={4}
+                            maxRows={5}
                             margin="dense"
                             fullWidth
                             label="Your Messsage"

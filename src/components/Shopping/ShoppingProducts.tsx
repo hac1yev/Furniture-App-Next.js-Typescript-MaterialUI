@@ -6,6 +6,7 @@ import Image from "next/image";
 import './Shopping.css'
 import { useDispatch, useSelector } from "react-redux";
 import { shoppingSliceActions } from "@/store/shopping-slice";
+import Swal from "sweetalert2";
 
 type ProductType = {
     _id: string;
@@ -28,11 +29,17 @@ const ShoppingProducts = () => {
 
     const handleRemoveFromShopList = async (id: string) => {
         try {
+            
             await fetch(`/api/shopping/${id}`, {
                 method: 'DELETE',
             });
 
-            dispatch(shoppingSliceActions.deleteShoppingProduct(id));        
+            dispatch(shoppingSliceActions.deleteShoppingProduct(id));  
+            Swal.fire(
+                `${'Product removed from the cart!'}`,
+                '',
+                'success'
+            );      
         } catch (error) {
             console.log(error);
         }
@@ -68,7 +75,7 @@ const ShoppingProducts = () => {
         }
     };  
 
-    if(myShoppingProducts.length === 0 && isLoading) {
+    if(myShoppingProducts?.length === 0 && isLoading) {
         return (
             <Typography variant="subtitle1" sx={{ textAlign: 'center', marginY: 4 }}>Loading...</Typography>
         );

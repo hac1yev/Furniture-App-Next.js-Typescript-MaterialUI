@@ -22,13 +22,13 @@ const SummaryCheckout = () => {
     const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
     const dispatch = useDispatch();
 
-    let totalCount = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
+    let totalCount = myShoppingProducts?.reduce((total: number, item: MyShoppingProductsType) => {
         total += item?.count;
         return total;
     }, 0);
 
 
-    let totalPrice = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
+    let totalPrice = myShoppingProducts?.reduce((total: number, item: MyShoppingProductsType) => {
         total += (item?.product?.price * item?.count);
         return total;   
     }, 0);

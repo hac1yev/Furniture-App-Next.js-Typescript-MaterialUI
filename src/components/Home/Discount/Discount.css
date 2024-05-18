@@ -12,6 +12,11 @@
     gap: 30px;
 }
 
+.discount-section a {
+    max-width: 330px;
+    width: 100%;
+}
+
 .discount-section h1 {
     color: #FFF;
     font-family: Didot;
