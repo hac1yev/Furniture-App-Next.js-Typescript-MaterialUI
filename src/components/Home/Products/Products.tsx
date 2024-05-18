@@ -1,15 +1,14 @@
 "use client";
 
-import ProductItems from './ProductItems';
 import './Products.css';
 import { Box, Container, Grid, Typography } from '@mui/material';
-// import Preloader from '@/components/LazyLoading/LazyLoading';
-// import dynamic from 'next/dynamic';
+import Preloader from '@/components/LazyLoading/LazyLoading';
+import dynamic from 'next/dynamic';
 
-// const ProductItems = dynamic(() => import("./ProductItems"), {
-//   ssr: false,
-//   loading: () => <Preloader/>
-// });
+const ProductItems = dynamic(() => import("./ProductItems"), {
+  ssr: false,
+  loading: () => <Preloader/>
+});
 
 type HookTypes = {
   addFavorites: (id: string) => void;

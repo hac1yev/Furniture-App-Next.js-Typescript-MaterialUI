@@ -2,14 +2,13 @@
 
 import '../Products/Products.css';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import PopularItems from './PopularItems';
-// import dynamic from 'next/dynamic';
-// import PopularPreloader from '@/components/LazyLoading/PopularPreloader';
+import dynamic from 'next/dynamic';
+import PopularPreloader from '@/components/LazyLoading/PopularPreloader';
 
-// const PopularItems = dynamic(() => import("./PopularItems"), {
-//   ssr: false,
-//   loading: () => <PopularPreloader />
-// })
+const PopularItems = dynamic(() => import("./PopularItems"), {
+  ssr: false,
+  loading: () => <PopularPreloader />
+})
 
 type HookTypes = {
   addFavorites: (id: string) => void;
