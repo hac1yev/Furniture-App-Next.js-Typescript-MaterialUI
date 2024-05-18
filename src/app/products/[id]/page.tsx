@@ -189,10 +189,11 @@ const ProductDetail = ({ params }: ParamsType) => {
                   <Typography sx={{ marginY: 6 }} variant="h2">{productData.price * count}$</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', gap: '8px' }}>
+                <Link href="/checkout" style={{ width: '50%' }}>
                   <Button size="large" 
                     sx={{ 
                       color: '#fff', 
-                      width: '50%', 
+                      width: '100%', 
                       bgcolor: 'primary.main', 
                       borderRadius: '10px', 
                       fontSize: '16px',
@@ -202,8 +203,9 @@ const ProductDetail = ({ params }: ParamsType) => {
                     }}
                     onClick={handleBuy.bind(null, productData.price * count)}
                   >
-                    <Link href="/checkout">BUY NOW</Link>
+                    BUY NOW
                   </Button>
+                  </Link>
                   <Button onClick={addToCart} variant="outlined" size="large" sx={{ width: '50%', borderRadius: '10px', fontSize: '16px' }}>
                     ADD TO CART
                   </Button>
