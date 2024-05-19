@@ -62,7 +62,7 @@ const ProductItems = ({ addFavorites, removeFavorites }: HookTypes) => {
                     style={{objectFit: "cover", borderRadius: '10px'}} 
                     sizes="(max-width: 768px) 100vw, 33vw" 
                     src={item.image} 
-                    alt={item.furniture} 
+                    alt={"product-item"} 
                     priority
                     fill 
                   />
