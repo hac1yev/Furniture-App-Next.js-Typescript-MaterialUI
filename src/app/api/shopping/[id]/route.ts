@@ -8,6 +8,8 @@ export async function DELETE(req: Request, { params }: { params: { id: string } 
     const session = await getServerSession();
     const email = session?.user?.email;
 
+    await connectToDB();
+
     const shoppingProducts = await ShoppingCart.findOneAndUpdate({ email }, { $pull: { products: { product: id } } });
     await shoppingProducts.save();
 
