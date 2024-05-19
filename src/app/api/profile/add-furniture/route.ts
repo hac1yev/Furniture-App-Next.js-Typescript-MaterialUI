@@ -1,5 +1,6 @@
 import { connectToDB } from "@/lib/connectToDB";
 import { Product } from "@/models/Product";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: Request) {
     const { image, furniture, price, f_collection, title, description } = await req.json();
@@ -36,6 +37,9 @@ export async function POST(req: Request) {
 
     await newFurniture.save();
     await Product.findByIdAndUpdate(newFurniture._id, { $inc: { views: 1 } });
+
+    revalidatePath("/products");
+    revalidatePath("/home");
 
     return Response.json({ message: 'Added' });
 };
