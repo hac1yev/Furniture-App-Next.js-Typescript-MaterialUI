@@ -39,7 +39,7 @@ export async function POST(req: Request) {
     await Product.findByIdAndUpdate(newFurniture._id, { $inc: { views: 1 } });
 
     revalidatePath("/products");
-    revalidatePath("/home");
+    revalidatePath("/");
 
     return Response.json({ message: 'Added' });
 };
