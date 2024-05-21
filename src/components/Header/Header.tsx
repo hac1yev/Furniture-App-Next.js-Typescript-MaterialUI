@@ -19,20 +19,23 @@ const Header = () => {
     const dispatch = useDispatch();    
 
     useEffect(() => {
-        (async function() {
-            try {
-                const response = await fetch("/api/shopping");
-
-                const {data} = await response.json();
-
-                dispatch(shoppingSliceActions.getAllShoppingProducts({ products: data?.products, isLoading: false  }));
-                
-            } catch (error) {
-                console.log(error);
-                
-            }
-        })()
-    }, [dispatch]);
+        if(session) {
+            (async function() {
+                try {
+                    const response = await fetch("/api/shopping");
+    
+                    const {data} = await response.json();
+    
+                    dispatch(shoppingSliceActions.getAllShoppingProducts({ products: data?.products, isLoading: false  }));
+                    console.log("ilkin");
+                    
+                } catch (error) {
+                    console.log(error);
+                    
+                }
+            })()
+        }
+    }, [dispatch, session]);
 
     const handleClick = () => {
         setOpenMenu(prev => !prev)

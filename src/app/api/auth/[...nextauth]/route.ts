@@ -20,21 +20,29 @@ const handler = NextAuth({
           email: string;
           password: string;
         };   
-        
+
+        if (!email || !password) {
+          throw new Error("Email and password are required!");
+        }
+
         await connectToDB();
 
         const user = await User.findOne({ email });
-        
+
+        if (!user) {
+          throw new Error("No user found with the provided email.");
+        }
+  
         const passwordIsCorrect = await isPasswordCorrect(password, user.password);
 
-        if(passwordIsCorrect) {
-          return {
-            id: user._id,
-            email: user.email
-          };
-        };
+        if (!passwordIsCorrect) {
+          throw new Error("Incorrect password!");
+        }
 
-        return null;
+        return {
+          id: user._id,
+          email: user.email
+        };
       },
     }),
   ],

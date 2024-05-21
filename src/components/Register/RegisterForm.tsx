@@ -1,10 +1,14 @@
 "use client";
 
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import PasswordInput from "../ProfileBody/PasswordInput";
 
 const RegisterForm = () => {
+  const [password,setPassword] = useState("");
+  const [err,setErr] = useState<string | null>(null);
   const navigate = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -17,14 +21,20 @@ const RegisterForm = () => {
                 firstName: data.get("firstName"),
                 lastName: data.get("lastName"),
                 email: data.get("email"),
-                password: data.get("password")
+                password
             })
         });
 
-        const { status } = await response.json();
-
-        if(status === 201) {
+        const resData = await response.json();
+        
+        if(resData?.status === 201) {
           navigate.push("/login")
+        }
+        else if(resData?.status === 409) {
+          setErr(resData?.message);
+        }
+        else if(resData?.status === 400) {
+          setErr(resData?.message);
         }
         
     } catch (error) {
@@ -32,8 +42,32 @@ const RegisterForm = () => {
     }
   };
 
+  
+  const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };    
+
   return (
     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+      {err && (
+        <Box sx={{ 
+          bgcolor: 'rgb(243, 195, 195)', 
+          height: '50px', 
+          width: "100%",
+          display: 'flex',
+          alignItems: 'center',
+          marginY: 2
+        }}>
+          <Typography sx={{
+            color: 'rgb(249, 66, 66)', 
+            fontSize: '18px', 
+            fontWeight: '700',
+            paddingX: 1
+          }}>
+            {err}
+          </Typography>
+        </Box>
+      )}
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -67,15 +101,7 @@ const RegisterForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="new-password"
-          />
+          <PasswordInput password={password} handlePassword={handlePassword} />
         </Grid>
       </Grid>
       <Button
