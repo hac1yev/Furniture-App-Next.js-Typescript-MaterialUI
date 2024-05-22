@@ -69,10 +69,7 @@ export default function PaymentForm() {
     }
   }else if(totalPrice > 0 && oneItemPrice > 0) {
     totalPrice = oneItemPrice;
-  }
-
-  console.log(totalPrice);
-  
+  }  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -24,6 +24,7 @@ const LoginForm = () => {
 
     if(response?.status === 200) {
       router.push("/");
+      window.location.reload();
     }
     else if(response?.status === 401) {
       setErr(response?.error)

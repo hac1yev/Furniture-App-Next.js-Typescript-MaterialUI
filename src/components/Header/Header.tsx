@@ -26,9 +26,7 @@ const Header = () => {
     
                     const {data} = await response.json();
     
-                    dispatch(shoppingSliceActions.getAllShoppingProducts({ products: data?.products, isLoading: false  }));
-                    console.log("ilkin");
-                    
+                    dispatch(shoppingSliceActions.getAllShoppingProducts({ products: data?.products, isLoading: false  }));                    
                 } catch (error) {
                     console.log(error);
                     
