@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Grid, Link, Typography } from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Image from "next/image";
 import { useSelector } from "react-redux";
 import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
@@ -8,6 +8,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import useFavorites from "@/hooks/useFavorites";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type HookTypes = {
   addFavorites: (id: string) => void;
