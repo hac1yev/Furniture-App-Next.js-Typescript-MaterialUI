@@ -1,10 +1,5 @@
-.mobile-checkbox .css-tvt50p-MuiButtonBase-root-MuiCheckbox-root {
+.mobile-checkbox span {
     padding: 0!important;
-}
-
-.css-7j4kez-MuiAccordionDetails-root {
-    display: flex;
-    flex-wrap: wrap;
 }
 
 .mobile-checkbox {

@@ -76,8 +76,9 @@ const ProductHead = ({ filteredProducts }: AllProductsType) => {
           alignItems: "flex-start",
           gap: 1,
         }}
+        className="product-head-wrapper"
       >
-        <Box sx={{ maxWidth: "500px", width: "100%", position: "relative" }}>
+        <Box component="article" sx={{ maxWidth: "500px", width: "100%", position: "relative" }}>
           <Typography sx={{ opacity: 0.5, width: "100%" }}>
             Et harum quidem rerum facilis est et expedita distinctio. Nam libero
             tempore, cum soluta nobis est eligendi optio cumque nihil impedit

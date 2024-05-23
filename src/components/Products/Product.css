@@ -58,26 +58,30 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
 	width: 100%;
 }
 
-.css-1086bdv-MuiPaper-root-MuiAccordion-root {
+.product-head-wrapper > div {
 	background-color: transparent;
 	color: rgba(184, 146, 106, 1);
 	border: 1px solid rgba(184, 146, 106, 1);
 	border-radius: 10px!important;
 }
 
-.css-1086bdv-MuiPaper-root-MuiAccordion-root::before {
+.product-head-wrapper > div::before {
 	display: none;
 }
 
-.css-i4bv87-MuiSvgIcon-root {
+.product-head-wrapper > div svg {
     fill: rgba(184, 146, 106, 1);
     font-size: 2rem;
 }
 
-.css-1086bdv-MuiPaper-root-MuiAccordion-root {
+.product-head-wrapper > div {
 	width: 100%;
 }
 
-.css-15v22id-MuiAccordionDetails-root {
+.product-head-wrapper > div li {
+	padding-top: 0!important;
+}
+
+.MuiAccordionDetails-root {
     padding: 0px 16px 8px;
 }
