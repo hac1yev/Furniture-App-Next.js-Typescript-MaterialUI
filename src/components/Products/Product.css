@@ -48,3 +48,36 @@ div:where(.swal2-container).swal2-center>.swal2-popup {
 div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
     box-shadow: 0 0 0 3px rgb(235, 209, 165)!important;
 }
+
+.css-tku5bh-MuiTypography-root-MuiLink-root {
+	text-decoration: none;
+}
+
+.css-3dzjca-MuiPaper-root-MuiPopover-paper-MuiMenu-paper {
+	max-width: 264.64px!important;
+	width: 100%;
+}
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root {
+	background-color: transparent;
+	color: rgba(184, 146, 106, 1);
+	border: 1px solid rgba(184, 146, 106, 1);
+	border-radius: 10px!important;
+}
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root::before {
+	display: none;
+}
+
+.css-i4bv87-MuiSvgIcon-root {
+    fill: rgba(184, 146, 106, 1);
+    font-size: 2rem;
+}
+
+.css-1086bdv-MuiPaper-root-MuiAccordion-root {
+	width: 100%;
+}
+
+.css-15v22id-MuiAccordionDetails-root {
+    padding: 0px 16px 8px;
+}

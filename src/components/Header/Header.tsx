@@ -44,7 +44,7 @@ const Header = () => {
             <header>
                 <div className='header-top'>
                     <div className='header-left'>
-                        <div className='lang'>Az</div>
+                        {/* <div className='lang'>Az</div> */}
                         <Image width={20} height={20} className='search-icon' onClick={() => setOpenSearch(true)} src='/header/search.svg' alt="search-icon" />
                     </div>
                     <div className="logo"><Link href="/"><strong>HomeDecor</strong></Link></div>

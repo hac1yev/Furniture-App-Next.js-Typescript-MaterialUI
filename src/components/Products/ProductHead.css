@@ -1,0 +1,13 @@
+.mobile-checkbox .css-tvt50p-MuiButtonBase-root-MuiCheckbox-root {
+    padding: 0!important;
+}
+
+.css-7j4kez-MuiAccordionDetails-root {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.mobile-checkbox {
+    font-size: 16px!important;
+    text-transform: lowercase;
+}

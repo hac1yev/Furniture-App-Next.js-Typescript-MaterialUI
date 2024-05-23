@@ -1,403 +1,87 @@
 "use client";
 
-import React, { Suspense, useEffect, useReducer, useState } from "react";
+import React, { Suspense, useEffect } from "react";
 import "../../components/Home/Products/Products.css";
-import { Box, Button, Checkbox, Container, Grid, Typography, useMediaQuery } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import FavoriteBorderOutlinedIcon from "@mui/icons-material/FavoriteBorderOutlined";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Box, Container, Grid, useMediaQuery } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { useSelector } from "react-redux";
 import PageNavigations from "@/components/PageNavigations/PageNavigations";
-import SortIcon from "@mui/icons-material/Sort";
-import { navigation_data, CollectionTitles, CategoryTitles } from "@/dummy_data/data";
-import useFavorites from "@/hooks/useFavorites";
+import { navigation_data } from "@/dummy_data/data";
 import ProductsPagination from "./ProductsPagination";
+import ProductCategories from "./ProductCategories";
+import ProductCollections from "./ProductCollections";
+import ProductHead from "./ProductHead";
+import { useDispatch, useSelector } from "react-redux";
+import { productsSliceAction } from "@/store/products-slice";
+import AllProductsPreloader from '@/components/LazyLoading/AllProductsPreloader';
+import dynamic from 'next/dynamic';
 
-type FurnitureType = {
+const ProductList = dynamic(() => import("./ProductList"), {
+  ssr: false,
+  loading: () => <AllProductsPreloader />
+});
+
+type ProductType = {
   _id: string;
   description: string;
   title: string;
   price: number;
   furniture: string;
   image: string;
+  f_collection: string;
 };
 
-type AllFurnituresType = {
-  furnitures: FurnitureType[];
+type AllProductsType = {
+  filteredProducts: ProductType[];
+  productsReducer: AllProductsType;
 };
-
-type HookTypes = {
-  addFavorites: (id: string) => void;
-  removeFavorites: (id: string) => void;
-};
-
-type StateType = {
-  categories: string[];
-  collections: string[];
-};
-
-const initialState: StateType = {
-  categories: [],
-  collections: [],
-};
-
-type ActionType = {
-  type: "collection" | "category";
-  payload: {
-    title: string;
-    isChecked: boolean;
-  };
-};
-
-function reducer(state: StateType, action: ActionType) {
-  switch (action.type) {
-    case "category":
-      return {
-        ...state,
-        categories: action.payload.isChecked
-          ? [...state.categories, action.payload.title]
-          : state.categories.filter(
-              (item: string) => item !== action.payload.title
-            ),
-      };
-    case "collection":
-      return {
-        ...state,
-        collections: action.payload.isChecked
-          ? [...state.collections, action.payload.title]
-          : state.collections.filter(
-              (item: string) => item !== action.payload.title
-            ),
-      };
-    default:
-      return state;
-  }
-}
 
 const AllProducts = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const selectedId = useSelector(
-    (state: any) => state.favoriteReducer.selectedId
-  );
-  const [furnitures, setFurnitures] = useState<AllFurnituresType | null>(null);
-  const { addFavorites, removeFavorites }: HookTypes = useFavorites();
-  const { data: session } = useSession();
-  const navigation = useRouter();
+  const filteredProducts = useSelector((state: AllProductsType) => state.productsReducer.filteredProducts);
   const isLarge = useMediaQuery("(max-width:899.5px)");
-  const [anchorEl, setAnchorEl] = useState(false);
   const searchParams = useSearchParams();
-
+  const dispatch = useDispatch();  
   const router = useRouter();
 
   const productPage = Number(searchParams.get("page")) || 1;
-
-  let filteredProducts;
-
-  if (
-    (state as StateType)?.categories.length === 0 &&
-    (state as StateType)?.collections.length === 0
-  ) {
-    filteredProducts = furnitures;
-  } else if (
-    (state as StateType)?.categories.length > 0 &&
-    (state as StateType)?.collections.length === 0
-  ) {
-    filteredProducts =
-      Array.isArray(furnitures) &&
-      furnitures.filter((product) =>
-        (state as StateType)?.categories.some((category: string) =>
-          product?.furniture?.includes(category)
-        )
-      );
-  } else if (
-    (state as StateType)?.categories.length === 0 &&
-    (state as StateType)?.collections.length > 0
-  ) {
-    filteredProducts =
-      Array.isArray(furnitures) &&
-      furnitures.filter((product) =>
-        (state as StateType)?.collections.some((collection: string) =>
-          product?.f_collection?.includes(collection)
-        )
-      );
-  } else {
-    filteredProducts =
-      Array.isArray(furnitures) &&
-      furnitures.filter(
-        (product) =>
-          (state as StateType)?.categories.some((category: string) =>
-            product?.furniture?.includes(category)
-          ) &&
-          (state as StateType)?.collections?.includes(product?.f_collection)
-      );
-  }
+  let paginationCount = Math.ceil(filteredProducts.length / 9);
 
   useEffect(() => {
     const fetchFurnitures = async () => {
       const response = await fetch("/api/products");
       const { data } = await response.json();
-      setFurnitures(data);
+      dispatch(productsSliceAction.getAllProducts(data))
     };
 
-    router.replace(`/products?page=${productPage}`);
-
     fetchFurnitures();
-  }, [productPage, router]);
+  }, [dispatch]);
 
-  const handleAddFavorites = (id: string) => {
-    if (session) {
-      addFavorites(id);
-    } else {
-      navigation.push("/login");
+  useEffect(() => {
+    if(productPage > paginationCount) {
+      router.replace(`/products?page=1`);
+    }else{
+      router.replace(`/products?page=${productPage}`);
     }
-  };
+  }, [productPage, router, paginationCount]);
 
-  const handleCategoryChange = (
-    title: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    dispatch({
-      type: "category",
-      payload: {
-        title: title.toLocaleLowerCase(),
-        isChecked: event.target.checked,
-      },
-    });
-  };
-
-  const handleCollectionChange = (
-    title: string,
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    dispatch({
-      type: "collection",
-      payload: {
-        title: title.toLocaleLowerCase(),
-        isChecked: event.target.checked,
-      },
-    });
-  };
-
-  const handleSort = () => {
-    setAnchorEl(true);
-  };
-
-  if (anchorEl) {
-    Array.isArray(filteredProducts) &&
-      filteredProducts.sort((a, b) => b.price - a.price);
-  }
-
-  let paginationCount =
-    Array.isArray(filteredProducts) && Math.ceil(filteredProducts.length / 9);
-
-  if (!furnitures) {
-    return (
-      <Typography
-        variant="subtitle1"
-        sx={{ textAlign: "center", marginTop: 8 }}
-      >
-        Loading...
-      </Typography>
-    );
-  }
 
   return (
     <Container component="div" maxWidth={false} sx={{ mt: 4, width: "100%" }}>
       <PageNavigations arr={navigation_data} />
-      <Grid item xs={12} sm={6} lg={4} padding={1} sx={{ marginTop: 5 }}>
-        <Box
-          className="product-title-item"
-          sx={isLarge ? { margin: "0 auto" } : { textAlign: "start" }}
-        >
-          <Typography
-            variant="h3"
-            sx={isLarge ? { textAlign: "center" } : { textAlign: "start" }}
-            className={"products-header"}
-          >
-            PRODUCTS
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        sm={6}
-        lg={4}
-        padding={1}
-        sx={{
-          display: "flex",
-          flexDirection: isLarge ? "column" : "row",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: 1,
-        }}
-      >
-        <Box sx={{ maxWidth: "500px", width: "100%", position: "relative" }}>
-          <Typography sx={{ opacity: 0.5, width: "100%" }}>
-            Et harum quidem rerum facilis est et expedita distinctio. Nam libero
-            tempore, cum soluta nobis est eligendi optio cumque nihil impedit
-            quo minus id quod maxime.
-          </Typography>
-        </Box>
-        <Button
-          variant="outlined"
-          size="large"
-          onClick={handleSort}
-          sx={{
-            width: isLarge ? "100%" : "auto",
-            border: "1px solid primary.main",
-            px: 6,
-          }}
-        >
-          <SortIcon sx={{ marginRight: 1 }} />
-          SORT BY PRICE
-        </Button>
-        {isLarge && (
-            <>
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={handleSort}
-                sx={{
-                  width: isLarge ? "100%" : "auto",
-                  border: "1px solid primary.main",
-                  px: 6,
-                }}
-              >
-                <SortIcon sx={{ marginRight: 1 }} />
-                CATEGORIES
-              </Button>
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={handleSort}
-                sx={{
-                  width: isLarge ? "100%" : "auto",
-                  border: "1px solid primary.main",
-                  px: 6,
-                }}
-              >
-                <SortIcon sx={{ marginRight: 1 }} />
-                COLLECTIONS
-              </Button>
-            </>
-          )}
-      </Grid>
+      <ProductHead filteredProducts={filteredProducts} />
       <Grid container sx={!isLarge ? { marginY: 8 } : { marginY: 4 }}>
         <Grid container sm={12} md={3} lg={3}>
           <Box component={"div"}>
             {!isLarge && (
               <>
-                {" "}
-                <Typography variant="h6" sx={{ marginLeft: "10px" }}>
-                  CATEGORIES
-                </Typography>
-                <Box component={"div"} sx={{ marginY: 2 }}>
-                  {CategoryTitles.map((item) => (
-                    <Box
-                      component={"div"}
-                      key={item.id}
-                      sx={{ display: "flex", alignItems: "center", gap: "5px" }}
-                    >
-                      <Checkbox
-                        sx={{
-                          color: "primary.main",
-                          "&.Mui-checked": {
-                            color: "primary.main",
-                          },
-                        }}
-                        onChange={handleCategoryChange.bind(null, item.title)}
-                      />
-                      {item.title}
-                    </Box>
-                  ))}
-                </Box>{" "}
-                <Typography
-                  variant="h6"
-                  sx={{ marginLeft: "10px", marginTop: 6 }}
-                >
-                  COLLECTIONS
-                </Typography>
-                <Box component={"div"} sx={{ marginY: 2 }}>
-                  {CollectionTitles.map((item) => (
-                    <Box
-                      component={"div"}
-                      key={item.id}
-                      sx={{ display: "flex", alignItems: "center", gap: "5px" }}
-                    >
-                      <Checkbox
-                        sx={{
-                          color: "primary.main",
-                          "&.Mui-checked": {
-                            color: "primary.main",
-                          },
-                        }}
-                        onChange={handleCollectionChange.bind(null, item.title)}
-                      />
-                      {item.title}
-                    </Box>
-                  ))}
-                </Box>
+                <ProductCategories />
+                <ProductCollections />
               </>
             )}
           </Box>
         </Grid>
-        <Grid container sm={12} md={9} lg={9}>
-          {Array.isArray(filteredProducts) &&
-            filteredProducts
-              .slice((productPage - 1) * 9, productPage * 9)
-              ?.map((item: FurnitureType) => (
-                <Grid
-                  className="product-item"
-                  item
-                  xs={12}
-                  sm={6}
-                  md={6}
-                  lg={4}
-                  key={item._id}
-                  padding={1}
-                >
-                  <Link href={`/products/${item._id}`}>
-                    <Box className="product-item-img">
-                      <Image
-                        style={{ objectFit: "cover", borderRadius: "10px" }}
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        src={item.image}
-                        alt={item.furniture}
-                        priority
-                        fill
-                      />
-                    </Box>
-                    <Typography sx={{ marginTop: 1 }} variant="subtitle1">
-                      {item.title}
-                    </Typography>
-                    <Box
-                      sx={{ marginTop: 1 }}
-                      component="span"
-                    >{`${item.price}$`}</Box>
-                  </Link>
-                  <Box className="heart-box">
-                    {selectedId?.includes(item._id) ? (
-                      <FavoriteIcon onClick={() => removeFavorites(item._id)} />
-                    ) : (
-                      <FavoriteBorderOutlinedIcon
-                        onClick={() => handleAddFavorites(item._id)}
-                      />
-                    )}
-                  </Box>
-                </Grid>
-              ))}
-        </Grid>
+        <ProductList filteredProducts={filteredProducts} productPage={productPage} />
         <Grid container sm={12} md={3} lg={3}></Grid>
-        <Grid
-          container
-          sm={12}
-          md={9}
-          lg={9}
+        <Grid container sm={12} md={9} lg={9}
           sx={{
             display: "flex",
             justifyContent: "center",
