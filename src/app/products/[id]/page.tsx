@@ -153,7 +153,7 @@ const ProductDetail = ({ params }: ParamsType) => {
           <Box component={"div"}>
             <Grid container sx={{ marginTop: 6 }}>
               <Grid item xs={12} md={6} sx={{ paddingY: 2 }}>
-                <Box sx={{ width: '100%', height: '68vh', position: 'relative' }}>
+                <Box className="product-detail-image-box">
                   <Image 
                     src={productData.image || ""} 
                     alt={productData.title || ""}  

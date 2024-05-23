@@ -85,3 +85,18 @@ div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus {
 .MuiAccordionDetails-root {
     padding: 0px 16px 8px;
 }
+
+
+/* PRODUCT DETAIL */
+
+.product-detail-image-box {
+	width: 100%; 
+	height: 68vh; 
+	position: relative;
+}
+
+@media screen and (max-width:500px) {
+	.product-detail-image-box {
+		height: 45vh;
+	}
+}
