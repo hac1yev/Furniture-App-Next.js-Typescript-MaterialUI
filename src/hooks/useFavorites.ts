@@ -30,7 +30,7 @@ const useFavorites = () => {
 
     const removeFavorites = async (id: string) => {
         await fetch('api/favorites', {
-            method: 'PUT',
+            method: 'DELETE',
             body: JSON.stringify({id}),
             headers: {
                 'Content-Type': 'application/json'

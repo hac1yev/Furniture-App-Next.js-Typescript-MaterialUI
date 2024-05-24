@@ -33,6 +33,7 @@ export const favoriteSlice = createSlice({
     },
     removeFavorites(state, action: PayloadAction<string>) {
       state.selectedId = state.selectedId.filter(item => item !== action.payload);
+      state.allFavorites = state.allFavorites.filter((item: FurnitureType) => item._id !== action.payload);
     }
   },
 });

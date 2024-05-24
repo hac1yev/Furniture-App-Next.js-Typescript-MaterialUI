@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     return Response.json({ message: 'Product added!!!' });
 };
 
-export async function PUT(req: Request) {
+export async function DELETE(req: Request) {
     const { id } = await req.json();
     const session = await getServerSession();
     const email = session?.user?.email;    
