@@ -88,7 +88,7 @@ const AllProducts = () => {
             marginY: 8,
           }}
         >
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense>
             <ProductsPagination paginationCount={paginationCount} productPage={productPage} />
           </Suspense>
         </Grid>
