@@ -21,13 +21,13 @@ const ProductCategories = () => {
                         sx={{ display: "flex", alignItems: "center", gap: "5px" }}
                     >
                         <Checkbox
-                        sx={{
-                            color: "primary.main",
-                            "&.Mui-checked": {
-                            color: "primary.main",
-                            },
-                        }}
-                        onChange={handleCatColChange.bind(null, item.title)}
+                            sx={{
+                                color: "primary.main",
+                                "&.Mui-checked": {
+                                color: "primary.main",
+                                },
+                            }}
+                            onChange={handleCatColChange.bind(null, item.title)}
                         />
                         {item.title}
                     </Box>

@@ -52,3 +52,14 @@ export async function PUT(req: Request) {
         return Response.json({ error: 'Internal Server Error' });
     }
 }
+
+export async function DELETE() {
+    const session = await getServerSession();
+    const email = session?.user?.email;
+
+    await connectToDB();
+
+    await ShoppingCart.deleteOne({ email });    
+
+    return Response.json({ message: 'Paid' });
+};

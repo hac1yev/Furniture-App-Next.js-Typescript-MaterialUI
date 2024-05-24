@@ -14,6 +14,16 @@
     border-radius: 10px;
 }
 
+.checkout-button {
+    padding-left: 0!important;
+    padding-right: 0!important;
+}
+
+.checkout-button > a {
+    height: fit fit-content;
+    width: 100%;
+}
+
 .shopping-item:hover {
     background-color: #dbdbdb;
 }

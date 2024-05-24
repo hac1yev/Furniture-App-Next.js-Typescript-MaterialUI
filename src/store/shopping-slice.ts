@@ -52,6 +52,9 @@ export const shoppingSlice = createSlice({
         },
         getOneItemPrice(state,action) {
             state.oneItemPrice = action.payload;
+        },
+        clearShoppingProducts(state) {
+            state.myShoppingProducts = [];
         }
     },
 });

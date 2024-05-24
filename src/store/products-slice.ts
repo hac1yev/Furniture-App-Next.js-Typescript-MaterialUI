@@ -44,7 +44,6 @@ export const productsSlice = createSlice({
             const plainFilteredProducts = JSON.parse(JSON.stringify(filteredProducts));
             
             state.filteredProducts = plainFilteredProducts;
-            
         },
         removeCatCol(state: AllProductsType, action) {
             state.categoryCollection = state.categoryCollection.filter((item: string) => (
@@ -63,6 +62,9 @@ export const productsSlice = createSlice({
                 
                 state.filteredProducts = plainFilteredProducts;
             }
+        },
+        clearCatCol(state) {
+            state.categoryCollection = [];
         },
         sortPriceAtoZ(state: AllProductsType) {
             state.filteredProducts.sort((a, b) => a.title.localeCompare(b.title));

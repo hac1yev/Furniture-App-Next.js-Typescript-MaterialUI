@@ -8,8 +8,9 @@ import { useState } from "react";
 import './Checkout.css'
 import LoadingOverlay from "../LazyLoading/LoadingOverlay";
 import Swal from "sweetalert2";
-import { redirect } from "next/navigation";
-import { useSelector } from "react-redux";
+import { redirect, useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { shoppingSliceActions } from "@/store/shopping-slice";
 
 interface CardDetails {
     firstName: string;
@@ -38,6 +39,8 @@ export default function PaymentForm() {
   const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
   const oneItemPrice = useSelector((state: any) => state.shoppingReducer.oneItemPrice);
   const [isLoading,setIsLoading] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
   const elements = useElements();
   const [cardDetails, setCardDetails] = useState<CardDetails>({
     firstName: "",
@@ -48,10 +51,14 @@ export default function PaymentForm() {
     postalCode: "",
   });
 
-  let totalPrice = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
-    total += (item?.product?.price * item?.count);
-    return total;
-  }, 0);
+  let totalPrice = 0; 
+
+  if(myShoppingProducts) {
+    totalPrice = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
+      total += (item?.product?.price * item?.count);
+      return total;
+    }, 0);
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -67,7 +74,7 @@ export default function PaymentForm() {
     }else{
       redirect('/');
     }
-  }else if(totalPrice > 0 && oneItemPrice > 0) {
+  }else if(totalPrice > 0 && oneItemPrice > 0) {    
     totalPrice = oneItemPrice;
   }  
 
@@ -117,9 +124,16 @@ export default function PaymentForm() {
           '',
           'success'
         );
+        if(oneItemPrice === 0) {
+          await axios("/api/shopping", {
+            method: 'DELETE'
+          });
+          dispatch(shoppingSliceActions.clearShoppingProducts());
+        }else{
+          router.push('/');
+        }
       }
-
-      console.log(paymentResult);
+      
     } catch (error) {
       console.log(error);
     }

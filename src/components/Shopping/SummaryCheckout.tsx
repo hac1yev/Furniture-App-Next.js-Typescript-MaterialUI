@@ -55,6 +55,7 @@ const SummaryCheckout = () => {
                 <Typography sx={{ fontWeight: "700", fontSize: '20px' }}>{totalPrice}$</Typography>
             </Box>
             <Button 
+            className="checkout-button"
                 size="large"
                 sx={{ 
                     bgcolor: 'primary.main', 
