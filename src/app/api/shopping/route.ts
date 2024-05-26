@@ -24,16 +24,7 @@ export async function PUT(req: Request) {
         const email = session?.user?.email;    
 
         await connectToDB();
-        const shoppingCart = await ShoppingCart.findOne({ email });
-
-        const existingProduct = shoppingCart.products.find((item: { 
-            _id: string; 
-            product: string;
-            count: number;
-        }) => item.product.toString() === id);
-        console.log(existingProduct);
-        
-
+ 
         if(count_type === 'increase') {            
             await ShoppingCart.updateOne(
                 { email, "products.product": id },
@@ -61,5 +52,5 @@ export async function DELETE() {
 
     await ShoppingCart.deleteOne({ email });    
 
-    return Response.json({ message: 'Paid' });
+    return Response.json({ message: 'Paid!' });
 };
