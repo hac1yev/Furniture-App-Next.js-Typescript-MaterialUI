@@ -5,30 +5,17 @@ import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 
-type ProductType = {
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-};
-
-type MyShoppingProductsType = {
-    _id: number;
-    product: ProductType;
-    count: number;
-};
-
 const SummaryCheckout = () => {
     const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
     const dispatch = useDispatch();
 
-    let totalCount = myShoppingProducts?.reduce((total: number, item: MyShoppingProductsType) => {
+    let totalCount = myShoppingProducts?.reduce((total: number, item: MyShoppingProductTypes) => {
         total += item?.count;
         return total;
     }, 0);
 
 
-    let totalPrice = myShoppingProducts?.reduce((total: number, item: MyShoppingProductsType) => {
+    let totalPrice = myShoppingProducts?.reduce((total: number, item: MyShoppingProductTypes) => {
         total += (item?.product?.price * item?.count);
         return total;   
     }, 0);

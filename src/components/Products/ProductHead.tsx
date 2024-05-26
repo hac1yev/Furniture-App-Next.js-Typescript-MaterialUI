@@ -10,21 +10,7 @@ import { CategoryTitles, CollectionTitles } from "@/dummy_data/data";
 import useCatCol from "@/hooks/useCatCol";
 import './ProductHead.css';
 
-type ProductType = {
-  _id: string;
-  description: string;
-  title: string;
-  price: number;
-  furniture: string;
-  image: string;
-  f_collection: string;
-};
-
-type AllProductsType = {
-  filteredProducts: ProductType[];
-};
-
-const ProductHead = ({ filteredProducts }: AllProductsType) => {
+const ProductHead = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isLarge = useMediaQuery("(max-width:899.5px)");
   const open = Boolean(anchorEl);

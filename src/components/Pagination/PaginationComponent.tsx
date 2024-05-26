@@ -4,10 +4,6 @@ import { Pagination, Stack } from "@mui/material";
 import './PaginationComponent.css'
 import { useRouter, useSearchParams } from "next/navigation";
 
-type CountType = {
-    count: number
-};
-
 const PaginationComponent = ({ count }: CountType) => {
     const router = useRouter();
     const searchParams = useSearchParams(); 

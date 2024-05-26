@@ -1,21 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type ProductType = {
-    _id: string;
-    description: string;
-    title: string;
-    price: number;
-    furniture: string;
-    image: string;
-    f_collection: string;
-};
-  
-type AllProductsType = {
-    products: ProductType[];
-    categoryCollection: string[];
-    filteredProducts: ProductType[];
-};
-
 const initialProductsState = {
     products: [],
     categoryCollection: [],
@@ -26,11 +10,11 @@ export const productsSlice = createSlice({
     name: 'productsSlice',
     initialState: initialProductsState,
     reducers: {
-        getAllProducts(state: AllProductsType, action) {
+        getAllProducts(state: ProductSliceTypes, action) {
             state.products = [...action.payload]
             state.filteredProducts = [...action.payload]
         },
-        addCatCol(state: AllProductsType, action) {
+        addCatCol(state: ProductSliceTypes, action) {
             state.categoryCollection = [...state.categoryCollection, action.payload];
             state.filteredProducts = state.products;
             
@@ -45,7 +29,7 @@ export const productsSlice = createSlice({
             
             state.filteredProducts = plainFilteredProducts;
         },
-        removeCatCol(state: AllProductsType, action) {
+        removeCatCol(state: ProductSliceTypes, action) {
             state.categoryCollection = state.categoryCollection.filter((item: string) => (
                 item !== action.payload
             ));
@@ -66,13 +50,13 @@ export const productsSlice = createSlice({
         clearCatCol(state) {
             state.categoryCollection = [];
         },
-        sortPriceAtoZ(state: AllProductsType) {
+        sortPriceAtoZ(state: ProductSliceTypes) {
             state.filteredProducts.sort((a, b) => a.title.localeCompare(b.title));
         },
-        sortPriceHighToLow(state: AllProductsType) {
+        sortPriceHighToLow(state: ProductSliceTypes) {
             state.filteredProducts.sort((a, b) => b.price - a.price);
         },
-        sortPriceLowToHigh(state: AllProductsType) {
+        sortPriceLowToHigh(state: ProductSliceTypes) {
             state.filteredProducts.sort((a, b) => a.price - b.price);
         },
     }

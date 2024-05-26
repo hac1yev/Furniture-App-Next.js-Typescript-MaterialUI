@@ -3,21 +3,7 @@
 import { Grid } from "@mui/material";
 import ProductItem from "./ProductItem";
 
-type ProductType = {
-    _id: string;
-    description: string;
-    title: string;
-    price: number;
-    furniture: string;
-    image: string;
-};
-  
-type AllProductsType = {
-    filteredProducts: ProductType[];
-    productPage: number;
-};
-
-const ProductList = ({ filteredProducts, productPage }: AllProductsType) => {   
+const ProductList = ({ filteredProducts, productPage }: ProductListCompTypes) => {   
     return (
         <Grid container sm={12} md={9} lg={9}>
           {filteredProducts

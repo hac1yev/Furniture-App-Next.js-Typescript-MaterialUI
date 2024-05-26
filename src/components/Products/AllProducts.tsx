@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import "../../components/Home/Products/Products.css";
 import { Box, Container, Grid, useMediaQuery } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -20,23 +20,8 @@ const ProductList = dynamic(() => import("./ProductList"), {
   loading: () => <AllProductsPreloader />
 });
 
-type ProductType = {
-  _id: string;
-  description: string;
-  title: string;
-  price: number;
-  furniture: string;
-  image: string;
-  f_collection: string;
-};
-
-type AllProductsType = {
-  filteredProducts: ProductType[];
-  productsReducer: AllProductsType;
-};
-
 const AllProducts = () => {
-  const filteredProducts = useSelector((state: AllProductsType) => state.productsReducer.filteredProducts);
+  const filteredProducts = useSelector((state: AllProductsTypes) => state.productsReducer.filteredProducts);
   const isLarge = useMediaQuery("(max-width:899.5px)");
   const searchParams = useSearchParams();
   const dispatch = useDispatch();  
@@ -67,7 +52,7 @@ const AllProducts = () => {
   return (
     <Container component="div" maxWidth={false} sx={{ mt: 4, width: "100%" }}>
       <PageNavigations arr={navigation_data} />
-      <ProductHead filteredProducts={filteredProducts} />
+      <ProductHead />
       <Grid container sx={!isLarge ? { marginY: 8 } : { marginY: 4 }}>
         <Grid container sm={12} md={3} lg={3}>
           <Box component={"div"}>
@@ -88,9 +73,7 @@ const AllProducts = () => {
             marginY: 8,
           }}
         >
-          <Suspense>
-            <ProductsPagination paginationCount={paginationCount} productPage={productPage} />
-          </Suspense>
+          <ProductsPagination paginationCount={paginationCount} productPage={productPage} />
         </Grid>
       </Grid>
     </Container>

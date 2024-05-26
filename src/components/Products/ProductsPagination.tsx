@@ -4,11 +4,6 @@ import { Pagination, Stack } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
-type PaginationType = {
-  productPage: number;
-  paginationCount: number | false;
-};
-
 const ProductsPagination = ({
   productPage,
   paginationCount,

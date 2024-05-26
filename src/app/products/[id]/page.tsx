@@ -13,22 +13,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-type ParamsType = {
-  params: {
-    id: string
-  }
-};
-
-type ProductDataType = {
-  _id: string;
-  description: string;
-  title: string;
-  image: string;
-  price: number;
-  furniture: string;
-  f_collection: string;
-};
-
 const ProductDetail = ({ params }: ParamsType) => {
   const session = useSession();
   const route = useRouter();    
@@ -38,7 +22,7 @@ const ProductDetail = ({ params }: ParamsType) => {
   const dispatch = useDispatch();
 
   const { id } = params;  
-  const [productData,setProductData] = useState<ProductDataType | null>(null);
+  const [productData,setProductData] = useState<ProductTypes | null>(null);
 
   const navigation_data = [
     {
@@ -213,7 +197,7 @@ const ProductDetail = ({ params }: ParamsType) => {
               </Grid>
             </Grid>
           </Box>
-          <SimilarProducts furniture={productData.furniture} productId={id}  />
+          <SimilarProducts product={productData.furniture} productId={id}  />
         </>}
       </Container> 
   );

@@ -8,19 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { shoppingSliceActions } from "@/store/shopping-slice";
 import Swal from "sweetalert2";
 
-type ProductType = {
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-};
-
-type MyShoppingProductsType = {
-    _id: string;
-    product: ProductType;
-    count: number;
-};
-
 const ShoppingProducts = () => {
     const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
     const isLoading = useSelector((state: any) => state.shoppingReducer.isLoading);
@@ -58,7 +45,7 @@ const ShoppingProducts = () => {
     };    
     
     const handleDecrease = async (id: string) => {
-        const findedIndex = myShoppingProducts.findIndex((item: MyShoppingProductsType) => item.product._id === id);
+        const findedIndex = myShoppingProducts.findIndex((item: MyShoppingProductTypes) => item.product._id === id);
 
         if(findedIndex !== -1) {
             if(myShoppingProducts[findedIndex].count > 1) {            

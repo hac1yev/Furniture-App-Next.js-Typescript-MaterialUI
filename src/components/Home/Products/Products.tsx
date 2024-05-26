@@ -10,12 +10,7 @@ const ProductItems = dynamic(() => import("./ProductItems"), {
   loading: () => <Preloader/>
 });
 
-type HookTypes = {
-  addFavorites: (id: string) => void;
-  removeFavorites: (id: string) => void;
-};
-
-const Products = ({ addFavorites,removeFavorites }: HookTypes) => {
+const Products = ({ addFavorites,removeFavorites }: FavoriteHookTypes) => {
     return (
       <Container 
         component="div"

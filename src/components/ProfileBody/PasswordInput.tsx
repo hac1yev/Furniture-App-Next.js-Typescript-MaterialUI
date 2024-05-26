@@ -4,12 +4,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-type passwordType = {
-    password: string;
-    handlePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-
-const PasswordInput = ({ password, handlePassword }: passwordType) => {
+const PasswordInput = ({ password, handlePassword }: PasswordType) => {
   const [showPassword, setShowPassword] = useState(false);  
 
   const handleClickShowPassword = () => {

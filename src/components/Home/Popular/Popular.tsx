@@ -10,12 +10,7 @@ const PopularItems = dynamic(() => import("./PopularItems"), {
   loading: () => <PopularPreloader />
 })
 
-type HookTypes = {
-  addFavorites: (id: string) => void;
-  removeFavorites: (id: string) => void;
-};
-
-const Popular = ({ addFavorites, removeFavorites }: HookTypes) => {
+const Popular = ({ addFavorites, removeFavorites }: FavoriteHookTypes) => {
     return (
       <Container 
         component="div"

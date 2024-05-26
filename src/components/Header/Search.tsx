@@ -5,11 +5,6 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 
-type SearchType = {
-  openSearch: boolean;
-  setOpenSearch: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
 const Search = ({ openSearch, setOpenSearch }: SearchType) => {
   const searchParams = useSearchParams();
   const router = useRouter();

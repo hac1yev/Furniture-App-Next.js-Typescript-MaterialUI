@@ -10,22 +10,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-type HookTypes = {
-  addFavorites: (id: string) => void;
-  removeFavorites: (id: string) => void;
-};
-
-type ProductItemType = {
-    id: string;
-    image: string;
-    furniture: string;
-    title: string;
-    price: number;
-};
-
 const ProductItem = ({ id, image, furniture, title, price }: ProductItemType) => {
   const { data: session } = useSession();
-  const { addFavorites, removeFavorites }: HookTypes = useFavorites();
+  const { addFavorites, removeFavorites }: FavoriteHookTypes = useFavorites();
   const selectedId = useSelector((state: any) => state.favoriteReducer.selectedId);
   const navigation = useRouter();
 

@@ -1,25 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type ProductType = {
-    _id: string;
-    title: string;
-    price: number;
-    image: string;
-};
-
-type MyShoppingProductsType = {
-    _id: number;
-    product: ProductType;
-    count: number;
-};
-
 interface RootState<T> {
     myShoppingProducts: T[];
     isLoading: boolean;
     oneItemPrice: null | number;
 }
 
-const initialState: RootState<MyShoppingProductsType> = {
+const initialState: RootState<MyShoppingProductTypes> = {
     myShoppingProducts: [],
     isLoading: true,
     oneItemPrice: null

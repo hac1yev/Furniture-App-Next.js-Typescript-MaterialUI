@@ -12,28 +12,6 @@ import { redirect, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { shoppingSliceActions } from "@/store/shopping-slice";
 
-interface CardDetails {
-    firstName: string;
-    lastName: string;
-    email: string;
-    phoneNumber: string;
-    city: string;
-    postalCode: string;
-};
-
-type ProductType = {
-  _id: string;
-  title: string;
-  price: number;
-  image: string;
-};
-
-type MyShoppingProductsType = {
-  _id: number;
-  product: ProductType;
-  count: number;
-};
-
 export default function PaymentForm() {
   const stripe = useStripe();
   const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
@@ -54,7 +32,7 @@ export default function PaymentForm() {
   let totalPrice = 0; 
 
   if(myShoppingProducts) {
-    totalPrice = myShoppingProducts.reduce((total: number, item: MyShoppingProductsType) => {
+    totalPrice = myShoppingProducts.reduce((total: number, item: MyShoppingProductTypes) => {
       total += (item?.product?.price * item?.count);
       return total;
     }, 0);

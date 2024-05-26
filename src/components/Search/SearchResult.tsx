@@ -11,20 +11,7 @@ import useFavorites from '@/hooks/useFavorites';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
-type ProductType = {
-    _id: string;
-    description: string;
-    title: string;
-    price: number;
-    furniture: string;
-    image: string;
-  };
-  
-  type AllProductsCountType = {
-    products: ProductType[];
-  };
-
-const SearchResult = ({ products }: AllProductsCountType) => {
+const SearchResult = ({ products }: ProductListTypes) => {
     const selectedId = useSelector((state: any) => state.favoriteReducer.selectedId);
     const { addFavorites, removeFavorites } = useFavorites();
     const session = useSession();
@@ -40,7 +27,7 @@ const SearchResult = ({ products }: AllProductsCountType) => {
 
     return (
         <Grid container>
-          {Array.isArray(products) && products?.map((item: ProductType) => (
+          {Array.isArray(products) && products?.map((item: ProductTypes) => (
             <Grid className='product-item' item xs={12} sm={6} md={4} lg={3} key={item._id} padding={1}>
               <Link href={`/products/${item._id}`}>
                 <Box className="product-item-img">

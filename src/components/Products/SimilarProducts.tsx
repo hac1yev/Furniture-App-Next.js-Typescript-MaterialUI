@@ -15,26 +15,8 @@ import useFavorites from "@/hooks/useFavorites";
 import "../Home/Products/Products.css";
 import { useSelector } from "react-redux";
 
-type FurnitureType = {
-  _id: string;
-  description: string;
-  title: string;
-  price: number;
-  furniture: string;
-  image: string;
-};
-
-type AllFurnituresType = {
-  furnitures: FurnitureType[];
-};
-
-type PropsType = {
-    furniture: string;
-    productId: string
-};  
-
-const SimilarProducts = ({ furniture, productId }: PropsType) => {
-  const [furnitures, setFurnitures] = useState<AllFurnituresType | null>(null);
+const SimilarProducts = ({ product, productId }: SimiliarProductTypes) => {
+  const [products, setProducts] = useState<ProductListTypes | null>(null);
   const selectedId = useSelector((state: any) => state.favoriteReducer.selectedId);
   const { addFavorites, removeFavorites } = useFavorites();
   const { data: session } = useSession();
@@ -46,20 +28,20 @@ const SimilarProducts = ({ furniture, productId }: PropsType) => {
     speed: 500,
     autoplay: true,
     arrows: false,
-    slidesToShow: Array.isArray(furnitures) && furnitures?.length < 4 ? furnitures?.length : 4,
+    slidesToShow: Array.isArray(products) && products?.length < 4 ? products?.length : 4,
     slidesToScroll: 1,
     responsive: [
       {
         breakpoint: 1200,
         settings: {
-          slidesToShow: Array.isArray(furnitures) && furnitures?.length < 3 ? furnitures?.length : 3,
+          slidesToShow: Array.isArray(products) && products?.length < 3 ? products?.length : 3,
           slidesToScroll: 1,
         },
       },
       {
         breakpoint: 900,
         settings: {
-          slidesToShow: Array.isArray(furnitures) && furnitures?.length < 2 ? furnitures?.length : 2,
+          slidesToShow: Array.isArray(products) && products?.length < 2 ? products?.length : 2,
           slidesToScroll: 1,
         },
       },
@@ -75,17 +57,17 @@ const SimilarProducts = ({ furniture, productId }: PropsType) => {
   };
 
   useEffect(() => {
-    const fetchFurnitures = async () => {
+    const fetchproducts = async () => {
       const response = await fetch("/api/products");
       const { data } = await response.json();
 
-      let similarFurnitures = data.filter((item: FurnitureType) => item.furniture === furniture);   
-      let newFilteredFurnitures = similarFurnitures.filter((item: FurnitureType) => item._id !== productId)      
+      let similarproducts = data.filter((item: ProductTypes) => item.furniture === product);   
+      let newFilteredproducts = similarproducts.filter((item: ProductTypes) => item._id !== productId)      
 
-      setFurnitures(newFilteredFurnitures);
+      setProducts(newFilteredproducts);
     };
-    fetchFurnitures();
-  }, [productId,furniture]);
+    fetchproducts();
+  }, [productId,product]);
 
   const handleAddFavorites = (id: string) => {
     if (session) {
@@ -95,7 +77,7 @@ const SimilarProducts = ({ furniture, productId }: PropsType) => {
     }
   };
 
-  if (!furnitures) {
+  if (!products) {
     return (
       <Typography
         variant="subtitle1"
@@ -112,8 +94,8 @@ const SimilarProducts = ({ furniture, productId }: PropsType) => {
         SIMILIAR PRODUCTS
       </Typography>
       <Slider {...settings} className="category-slider">
-        {Array.isArray(furnitures) &&
-          furnitures?.map((item: FurnitureType) => (
+        {Array.isArray(products) &&
+          products?.map((item: ProductTypes) => (
             <Grid
               className="product-item"
               item
@@ -155,7 +137,7 @@ const SimilarProducts = ({ furniture, productId }: PropsType) => {
             </Grid>
           ))}
       </Slider>
-      {(Array.isArray(furnitures) && furnitures.length === 0) && (
+      {(Array.isArray(products) && products.length === 0) && (
         <Typography variant="subtitle1" sx={{ textAlign: 'center' }}>There is no similar product!</Typography>
       )}
     </>

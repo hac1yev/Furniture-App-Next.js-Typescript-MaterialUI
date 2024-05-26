@@ -5,15 +5,7 @@ import Link from "next/link";
 import React from "react";
 import './PageNavigations.css';
 
-type arrProps = {
-  arr: {
-    id: string,
-    title: string,
-    pathname: string
-  }[]
-};
-
-const PageNavigations = (props: arrProps) => {
+const PageNavigations = (props: PageNavigationTypes) => {
   return (
     <Box>
       <Grid container>

@@ -11,27 +11,9 @@ import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useSelector } from 'react-redux';
 
-type FurnitureType = {
-    _id: string,
-    description: string,
-    title: string,
-    price: number,
-    furniture: string,
-    image: string
-  };
-  
-  type AllFurnituresType = {
-    furnitures: FurnitureType[]
-  };
-
-  type HookTypes = {
-    addFavorites: (id: string) => void;
-    removeFavorites: (id: string) => void;
-  };
-
-const ProductItems = ({ addFavorites, removeFavorites }: HookTypes) => {
+const ProductItems = ({ addFavorites, removeFavorites }: FavoriteHookTypes) => {
     const selectedId = useSelector((state: any) => state.favoriteReducer.selectedId);
-    const [furnitures,setFurnitures] = useState<AllFurnituresType | null>(null);
+    const [furnitures,setFurnitures] = useState<ProductListTypes | null>(null);
     const { data: session } = useSession();
     const navigation = useRouter();
 
@@ -54,7 +36,7 @@ const ProductItems = ({ addFavorites, removeFavorites }: HookTypes) => {
 
     return (
         <Grid container>
-          {Array.isArray(furnitures) && furnitures?.slice(-9, -1)?.map((item: FurnitureType) => (
+          {Array.isArray(furnitures) && furnitures?.slice(-9, -1)?.map((item: ProductTypes) => (
             <Grid className='product-item' item xs={12} sm={6} md={4} lg={3} key={item._id} padding={1}>
               <Link href={`/products/${item._id}`}>
                 <Box className="product-item-img">

@@ -9,22 +9,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadingSliceActions } from "@/store/loading-slice";
 
-type ProductType = {
-  _id: string;
-  description: string;
-  title: string;
-  price: number;
-  furniture: string;
-  image: string;
-};
-
-type AllProductsCountType = {
-  products: ProductType[];
-  count: number;
-  q: string;
-};
-
-const SearchWrapper = ({ products, count, q }: AllProductsCountType) => {
+const SearchWrapper = ({ products, count, q }: SearchWrapperCompType) => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state: any) => state.loadingReducer.isLoading);
 

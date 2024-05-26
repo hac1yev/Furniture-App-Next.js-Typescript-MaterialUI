@@ -1,13 +1,8 @@
-import AllProducts from '@/components/Products/AllProducts';
-import { Suspense } from 'react';
+import ProductsPageWrapper from '@/components/Products/ProductsPageWrapper';
 
 const ProductsPage = () => {
   return (
-    <>
-      <Suspense fallback={<p>Loading...</p>}>
-        <AllProducts />
-      </Suspense>
-    </>
+    <ProductsPageWrapper />
   );
 };
 

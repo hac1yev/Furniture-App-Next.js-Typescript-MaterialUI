@@ -1,19 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type FurnitureType = {
-  _id: string;
-  description: string;
-  price: number;
-  furniture: string;
-  image: string;
-};
-
-type SelectedIdTypes = {
-  selectedId: string[];
-  allFavorites: FurnitureType[];
-};
-
-const initialFavoriteState: SelectedIdTypes = {
+const initialFavoriteState: FavoriteSliceTypes = {
   selectedId: [],
   allFavorites: [],
 };
@@ -22,7 +9,7 @@ export const favoriteSlice = createSlice({
   name: 'favoriteSlice',
   initialState: initialFavoriteState,
   reducers: {
-    getAllFavorites(state, action: PayloadAction<FurnitureType[]>) {
+    getAllFavorites(state, action: PayloadAction<ProductTypes[]>) {
       state.allFavorites = action.payload;
     },
     getSelectedIds(state, action: PayloadAction<string[]>) {
@@ -33,7 +20,7 @@ export const favoriteSlice = createSlice({
     },
     removeFavorites(state, action: PayloadAction<string>) {
       state.selectedId = state.selectedId.filter(item => item !== action.payload);
-      state.allFavorites = state.allFavorites.filter((item: FurnitureType) => item._id !== action.payload);
+      state.allFavorites = state.allFavorites.filter((item: ProductTypes) => item._id !== action.payload);
     }
   },
 });
