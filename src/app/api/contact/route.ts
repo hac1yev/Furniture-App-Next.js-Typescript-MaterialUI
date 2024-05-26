@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const { fullName,email,theme,message } = await req.json();
 
     if (!fullName || !email || !message || !theme) {
-        return Response.json({ error: 'Name, email, theme and message are required' });
+        return Response.json({ error: 'All inputs are required!' });
     }
 
     try {
