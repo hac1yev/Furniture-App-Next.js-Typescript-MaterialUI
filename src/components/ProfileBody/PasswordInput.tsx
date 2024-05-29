@@ -20,6 +20,7 @@ const PasswordInput = ({ password, handlePassword }: PasswordType) => {
       onChange={handlePassword}
       placeholder="Password *"
       required={true}
+      sx={{ marginTop: 0 }}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

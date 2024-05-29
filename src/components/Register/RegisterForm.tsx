@@ -20,6 +20,7 @@ const RegisterForm = () => {
             body: JSON.stringify({
                 firstName: data.get("firstName"),
                 lastName: data.get("lastName"),
+                username: data.get("username"),
                 email: data.get("email"),
                 password
             })
@@ -88,6 +89,16 @@ const RegisterForm = () => {
             label="Last Name"
             name="lastName"
             autoComplete="family-name"
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            fullWidth
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
           />
         </Grid>
         <Grid item xs={12}>

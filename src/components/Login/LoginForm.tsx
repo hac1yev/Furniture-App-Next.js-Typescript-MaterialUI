@@ -17,7 +17,7 @@ const LoginForm = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const response = await signIn("credentials", {
-        email: data.get("email"),
+        username: data.get("username"),
         password,
         redirect: false
     });    
@@ -59,10 +59,10 @@ const LoginForm = () => {
         margin="normal"
         required
         fullWidth
-        id="email"
-        label="Email Address"
-        name="email"
-        autoComplete="email"
+        id="username"
+        label="Username"
+        name="username"
+        autoComplete="username"
         autoFocus
       />
       <PasswordInput password={password} handlePassword={handlePassword} />

@@ -14,23 +14,26 @@ const handler = NextAuth({
   providers: [
     CredentialsProvider({
       type: 'credentials',
-      credentials: {},
+      credentials: {
+        username: { label: "Username", type: "text", placeholder: "jsmith" },
+        password: { label: "Password", type: "password" }
+      },
       async authorize(credentials) {
-        const { email, password } = credentials as {
-          email: string;
+        const { username, password } = credentials as {
+          username: string;
           password: string;
         };   
 
-        if (!email || !password) {
-          throw new Error("Email and password are required!");
+        if (!username || !password) {
+          throw new Error("Username and password are required!");
         }
 
         await connectToDB();
 
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ username });
 
         if (!user) {
-          throw new Error("No user found with the provided email.");
+          throw new Error("No user found with the provided username.");
         }
   
         const passwordIsCorrect = await isPasswordCorrect(password, user.password);
@@ -41,16 +44,25 @@ const handler = NextAuth({
 
         return {
           id: user._id,
+          username: user.username,
           email: user.email
         };
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }: any) {
+    async jwt({ token, user }: any) {    
+      if (user) {
+        token.username = user.username;
+        token.email = user.email;
+      } 
       return token;
     },
-    async session({ session }: any) {    
+    async session({ session, token }: any) { 
+      if (token) {
+        session.user.username = token.username;
+        session.user.email = token.email;
+      }
       return session;
     }
   }
