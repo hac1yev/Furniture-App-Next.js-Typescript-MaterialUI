@@ -57,6 +57,7 @@ const LoginForm = () => {
       )}
       <TextField
         margin="normal"
+        type="text"
         required
         fullWidth
         id="username"
