@@ -35,6 +35,10 @@ const handler = NextAuth({
         if (!user) {
           throw new Error("No user found with the provided username.");
         }
+
+        if(!user.isVerified) {
+          throw new Error("This user is not verified!");
+        }
   
         const passwordIsCorrect = await isPasswordCorrect(password, user.password);
 

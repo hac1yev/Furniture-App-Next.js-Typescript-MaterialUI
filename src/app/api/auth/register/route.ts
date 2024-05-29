@@ -1,5 +1,6 @@
 import { connectToDB } from "@/lib/connectToDB";
 import { hashPassword } from "@/lib/hashedPassword";
+import { sendEmail } from "@/lib/mailer";
 import { User } from "@/models/User";
 
 export async function POST(req: Request) {
@@ -33,7 +34,9 @@ export async function POST(req: Request) {
 
     const newUser = new User({ firstName, lastName, username, email, password: hashedPassword });
 
-    await newUser.save();
+    const savedUser = await newUser.save();
+
+    await sendEmail({ email, emailType: "VERIFY", userId: savedUser });
 
     return Response.json({ status: 201 });
 };

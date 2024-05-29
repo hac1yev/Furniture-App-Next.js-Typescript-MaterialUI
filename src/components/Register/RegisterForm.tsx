@@ -9,10 +9,12 @@ import PasswordInput from "../ProfileBody/PasswordInput";
 const RegisterForm = () => {
   const [password,setPassword] = useState("");
   const [err,setErr] = useState<string | null>(null);
+  const [isProcessing,setIsProcessing] = useState(false);
   const navigate = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setIsProcessing(true);
     const data = new FormData(event.currentTarget);
     try {
         const response = await fetch('/api/auth/register', {
@@ -41,6 +43,7 @@ const RegisterForm = () => {
     } catch (error) {
         console.log(error);
     }
+    setIsProcessing(false);
   };
 
   
@@ -123,6 +126,7 @@ const RegisterForm = () => {
         type="submit"
         fullWidth
         variant="contained"
+        disabled={isProcessing ? true : false}
         sx={{
           mt: 3,
           mb: 2,
@@ -133,7 +137,7 @@ const RegisterForm = () => {
           },
         }}
       >
-        Sign Up
+        {isProcessing ? "Processing..." : "Sign Up"}
       </Button>
       <Grid container justifyContent="flex-end">
         <Grid item>

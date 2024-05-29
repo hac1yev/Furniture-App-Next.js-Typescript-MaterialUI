@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import "./LoginForm.css";
 import Link from "next/link";
 import PasswordInput from "../ProfileBody/PasswordInput";
@@ -8,15 +8,13 @@ import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-const LoginForm = () => {
+const ChangePasswordForm = () => {
   const [password,setPassword] = useState("");
   const [err,setErr] = useState<string | null>(null);
-  const [isProcessing,setIsProcessing] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setIsProcessing(true);
     const data = new FormData(event.currentTarget);
     const response = await signIn("credentials", {
         username: data.get("username"),
@@ -30,7 +28,6 @@ const LoginForm = () => {
     else if(response?.status === 401) {
       setErr(response?.error)
     }
-    setIsProcessing(false);
   };
 
   const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +71,6 @@ const LoginForm = () => {
         type="submit"
         fullWidth
         variant="contained"
-        disabled={isProcessing ? true : false}
         sx={{
           mt: 3,
           mb: 2,
@@ -85,7 +81,7 @@ const LoginForm = () => {
           },
         }}
       >
-        {isProcessing ? "Processing..." : "Sign In"}
+        Sign In
       </Button>
       <Grid container>
         <Grid item xs>
@@ -105,4 +101,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ChangePasswordForm;

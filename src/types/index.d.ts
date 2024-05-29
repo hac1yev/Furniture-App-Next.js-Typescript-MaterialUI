@@ -105,3 +105,9 @@ declare type PasswordType = {
     password: string;
     handlePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+declare type SendEmailTypes = {
+    email: string;
+    emailType: string;
+    userId: string;
+};
