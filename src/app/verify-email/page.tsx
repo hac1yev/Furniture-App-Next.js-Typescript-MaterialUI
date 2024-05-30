@@ -1,13 +1,15 @@
 "use client";
 
+import { Box, Button, Container, Typography } from "@mui/material";
 import axios from "axios";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 export default function VerifyEmailPage() {
     const [token, setToken] = useState("");
     const [verified, setVerified] = useState(false);
-    const [error, setError] = useState(false);
+    const [error, setError] = useState("");
 
     useEffect(() => {
         const urlToken = window.location.search.split("=")[1];
@@ -21,8 +23,8 @@ export default function VerifyEmailPage() {
                     await axios.post('/api/verifyemail', {token})
                     setVerified(true);
                 } catch (error:any) {
-                    setError(true);
-                    console.log(error);
+                    setError(error.response.data.error);
+                    console.log(error.response.data.error);
                 }
             };
             verifyUserEmail();
@@ -30,25 +32,50 @@ export default function VerifyEmailPage() {
     }, [token]);
 
     return(
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-
-            <h1 className="text-4xl">Verify Email</h1>
-            <h2 className="p-2 bg-orange-500 text-black">{token ? `${token}` : "no token"}</h2>
-
-            {verified && (
-                <div>
-                    <h2 className="text-2xl">Email Verified</h2>
-                    <Link href="/login">
-                        Login
-                    </Link>
-                </div>
-            )}
-            {error && (
-                <div>
-                    <h2 className="text-2xl bg-red-500 text-black">Error</h2>
-                </div>
-            )}
-        </div>
+        <Container 
+            maxWidth="sm"   
+            sx={{ paddingY: 5 }}  
+        >
+            <Box
+                sx={{ display: 'flex', flexDirection: 'column', alignItems: "center" }}
+            >
+                {verified && (
+                <>
+                    <Image 
+                        src="/success.svg"
+                        width={100}
+                        height={100}
+                        alt="success"
+                    />
+                    <Typography sx={{ paddingTop: 1 }} variant="h4">
+                        Your email has been verified.
+                    </Typography>
+                    <Typography sx={{ paddingTop: 2 }} variant="subtitle2">
+                        You can now sign in with your new account.
+                    </Typography>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            mt: 3,
+                            mb: 2,
+                            bgcolor: "primary.main",
+                            color: "#fff",
+                            maxWidth: '130px',
+                            width: '100%',
+                            "&:hover": {
+                                bgcolor: "primary.main",
+                            },
+                        }}
+                    >
+                        <Link href="/login">SIGN IN</Link>
+                    </Button>
+                </>
+                )}
+                {error && (
+                    <Typography variant="h4" className="text-2xl bg-red-500 text-black">{error}</Typography>
+                )}
+            </Box>
+        </Container>
     )
 
 }

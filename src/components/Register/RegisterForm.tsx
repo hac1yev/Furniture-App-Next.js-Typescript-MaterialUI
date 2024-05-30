@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import PasswordInput from "../ProfileBody/PasswordInput";
+import Swal from "sweetalert2";
 
 const RegisterForm = () => {
   const [password,setPassword] = useState("");
@@ -31,7 +32,12 @@ const RegisterForm = () => {
         const resData = await response.json();
         
         if(resData?.status === 201) {
-          navigate.push("/login")
+          navigate.push("/login");
+          Swal.fire(
+            `${'Please check your email to verify your account.'}`,
+            '',
+            'success'
+          );
         }
         else if(resData?.status === 409) {
           setErr(resData?.message);
