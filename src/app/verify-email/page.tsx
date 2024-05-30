@@ -68,7 +68,7 @@ export default function VerifyEmailPage() {
                             },
                         }}
                     >
-                        <Link style={{ width: '100%', heigth: '100%' }} href="/login">SIGN IN</Link>
+                        <Link style={{ width: '100%' }} href="/login">SIGN IN</Link>
                     </Button>
                 </>
                 )}
