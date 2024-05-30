@@ -2,10 +2,9 @@
 
 import axios from "axios";
 import Link from "next/link";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function VerifyEmailPage() {
-
     const [token, setToken] = useState("");
     const [verified, setVerified] = useState(false);
     const [error, setError] = useState(false);
@@ -14,7 +13,6 @@ export default function VerifyEmailPage() {
         const urlToken = window.location.search.split("=")[1];
         setToken(urlToken || "");
     }, []);
-
 
     useEffect(() => {
         if(token.length > 0) {
@@ -26,7 +24,7 @@ export default function VerifyEmailPage() {
                     setError(true);
                     console.log(error);
                 }
-            }
+            };
             verifyUserEmail();
         }
     }, [token]);
