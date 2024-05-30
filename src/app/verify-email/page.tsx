@@ -56,6 +56,7 @@ export default function VerifyEmailPage() {
                     <Button
                         variant="contained"
                         sx={{
+                            paddingX: 0,
                             mt: 3,
                             mb: 2,
                             bgcolor: "primary.main",
@@ -67,7 +68,7 @@ export default function VerifyEmailPage() {
                             },
                         }}
                     >
-                        <Link href="/login">SIGN IN</Link>
+                        <Link style={{ width: '100%', heigth: '100%' }} href="/login">SIGN IN</Link>
                     </Button>
                 </>
                 )}
@@ -77,5 +78,4 @@ export default function VerifyEmailPage() {
             </Box>
         </Container>
     )
-
 }
