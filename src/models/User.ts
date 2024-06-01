@@ -33,6 +33,7 @@ const UserSchema = new Schema({
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
     verifyTokenExpiry: Date,
+    verificationCode: String
 });
 
 export const User = models.User || model("User", UserSchema);

@@ -4,7 +4,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { useState } from "react";
 
-const PasswordInput = ({ password, handlePassword }: PasswordType) => {
+const PasswordInput = ({ password, handlePassword, placeholder }: PasswordType) => {
   const [showPassword, setShowPassword] = useState(false);  
 
   const handleClickShowPassword = () => {
@@ -14,11 +14,11 @@ const PasswordInput = ({ password, handlePassword }: PasswordType) => {
   return (
     <TextField
       size="medium"
-      margin="dense"
+      margin="normal"
       type={showPassword ? "text" : "password"}
       value={password}
       onChange={handlePassword}
-      placeholder="Password *"
+      placeholder={placeholder}
       required={true}
       sx={{ marginTop: 0 }}
       InputProps={{

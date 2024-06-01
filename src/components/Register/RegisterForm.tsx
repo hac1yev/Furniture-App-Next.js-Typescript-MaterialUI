@@ -125,7 +125,7 @@ const RegisterForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <PasswordInput password={password} handlePassword={handlePassword} />
+          <PasswordInput placeholder="Password" password={password} handlePassword={handlePassword} />
         </Grid>
       </Grid>
       <Button

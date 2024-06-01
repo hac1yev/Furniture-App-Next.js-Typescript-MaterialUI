@@ -69,7 +69,7 @@ const LoginForm = () => {
         autoComplete="username"
         autoFocus
       />
-      <PasswordInput password={password} handlePassword={handlePassword} />
+      <PasswordInput placeholder="Password" password={password} handlePassword={handlePassword} />
       <Button
         type="submit"
         fullWidth

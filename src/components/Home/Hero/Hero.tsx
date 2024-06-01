@@ -8,7 +8,7 @@ import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import Link from 'next/link';
 
 const Hero = () => {
-    const [imgChange,setImgChange] = useState(false);    
+    const [imgChange,setImgChange] = useState(false);        
 
     useEffect(() => {
         if(window.innerWidth <= 992) {

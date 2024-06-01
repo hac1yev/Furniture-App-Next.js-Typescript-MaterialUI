@@ -32,6 +32,7 @@
     "react-redux": "^9.1.1",
     "react-slick": "^0.30.2",
     "react-sweetalert2": "^0.6.0",
+    "react-verification-input": "^4.1.2",
     "slick-carousel": "^1.8.1",
     "stripe": "^15.6.0",
     "sweetalert2": "^11.11.0",

@@ -2,6 +2,7 @@
 
 import { Box, Typography } from '@mui/material';
 import '../Products/Product.css';
+import './LazyLoading.css'
 
 const LoadingOverlay = ({ overlayText }: { overlayText: string }) => {
     return (

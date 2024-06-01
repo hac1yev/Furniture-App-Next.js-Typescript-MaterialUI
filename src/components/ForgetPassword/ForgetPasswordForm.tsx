@@ -5,14 +5,51 @@ import "../Login/LoginForm.css";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { loadingSliceActions } from "@/store/loading-slice";
 
 const ForgetPasswordForm = () => {
   const [err,setErr] = useState<string | null>(null);
+  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+    try {
+        const formData = new FormData(event.currentTarget)
+
+        dispatch(loadingSliceActions.itIsLoading(true));
+
+        const response = await fetch("/api/auth/reset-password", {
+            method: 'POST',
+            body: JSON.stringify({
+                email: formData.get("email"),
+                username: formData.get("username")
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        const data = await response.json();        
+
+        if(data?.status === 200) {
+            Swal.fire(
+                `${'We send your email verification code. Please check your email.'}`,
+                '',
+                'success'
+            );
+        }
+
+        if(data?.status === 404) {
+            setErr(data?.message);
+        }
+
+        dispatch(loadingSliceActions.itIsNotLoading(false));
+    } catch (error) {
+        console.log(error);
+    }
   };
 
   return (
@@ -47,7 +84,16 @@ const ForgetPasswordForm = () => {
                 label="Email"
                 name="email"
                 autoComplete="email"
-                autoFocus
+            />
+            <TextField
+                margin="dense"
+                type="username"
+                required
+                fullWidth
+                id="username"
+                label="Username"
+                name="username"
+                autoComplete="username"
             />
             
             <Button
@@ -64,7 +110,7 @@ const ForgetPasswordForm = () => {
                     },
                 }}
             >
-                Sign In
+                Submit
             </Button>
             <Grid container>
                 <Grid item>

@@ -103,6 +103,7 @@ declare type PaginationType = {
 
 declare type PasswordType = {
     password: string;
+    placeholder: string;
     handlePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
