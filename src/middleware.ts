@@ -9,7 +9,8 @@ export function middleware(request: NextRequest) {
         request.nextUrl.pathname === "/register" || 
         request.nextUrl.pathname === "/verify-email" || 
         request.nextUrl.pathname === "/change-password" || 
-        request.nextUrl.pathname === "/forget-password"
+        request.nextUrl.pathname === "/forget-password" ||
+        request.nextUrl.pathname === "/verification-code" 
     )) {
         return NextResponse.redirect(new URL("/", request.url));
     }
