@@ -3,13 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 interface RootState<T> {
     myShoppingProducts: T[];
     isLoading: boolean;
-    oneItemPrice: null | number;
-}
+};
 
 const initialState: RootState<MyShoppingProductTypes> = {
     myShoppingProducts: [],
     isLoading: true,
-    oneItemPrice: null
 };
 
 export const shoppingSlice = createSlice({
@@ -36,9 +34,6 @@ export const shoppingSlice = createSlice({
             if(findedProductIndex !== -1) {
                 state.myShoppingProducts[findedProductIndex].count -= 1;
             }
-        },
-        getOneItemPrice(state,action) {
-            state.oneItemPrice = action.payload;
         },
         clearShoppingProducts(state) {
             state.myShoppingProducts = [];

@@ -49,7 +49,7 @@ const Header = () => {
                     </div>
                     <div className="logo"><Link href="/"><strong>HomeDecor</strong></Link></div>
                     <div className='header-right'>
-                        <Link href={!session ? '/login' : '/shopping-cart'} className='desktop-shopping'>
+                        <Link href={'/shopping-cart'} className='desktop-shopping'>
                             <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
@@ -59,11 +59,6 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className="burger">
-                        <Link href={!session ? '/login' : '/shopping-cart'}>
-                            <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
-                                <ShoppingCartOutlinedIcon color="action" />
-                            </Badge>
-                        </Link>
                         <Image onClick={() => setOpenSearch(true)} width={20} height={20} className='mobile-search-icon' src='/header/search.svg' alt="search-icon" />
                         <Image width={20} height={20} onClick={handleClick} src='/header/hamburger.svg' alt="hamburger-icon" />
                     </div>
@@ -100,7 +95,7 @@ const Header = () => {
                 <nav className={openMenu ? "mobile-menu" : "mobile-menu deactive-mobile-menu"} id='mobile_menu'>
                     <div className='header-top'>
                         <div className='header-mobile-left'>
-                        <Link href={!session ? '/login' : '/shopping-cart'} onClick={handleClick}>
+                        <Link href={'/shopping-cart'} onClick={handleClick}>
                             <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>

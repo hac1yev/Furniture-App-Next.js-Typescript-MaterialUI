@@ -1,13 +1,11 @@
 "use client";
 
-import { shoppingSliceActions } from "@/store/shopping-slice";
 import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const SummaryCheckout = () => {
     const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
-    const dispatch = useDispatch();
 
     let totalCount = myShoppingProducts?.reduce((total: number, item: MyShoppingProductTypes) => {
         total += item?.count;
@@ -35,14 +33,14 @@ const SummaryCheckout = () => {
             <Typography variant="h4">SUMMARY</Typography>
             <Box component={"div"} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography>ITEM COUNT</Typography>
-                <Typography sx={{ fontWeight: "700", fontSize: '20px' }}>{totalCount}</Typography>
+                <Typography sx={{ fontWeight: "700", fontSize: '20px' }}>{totalCount ? totalCount : 0}</Typography>
             </Box>
             <Box component={"div"} sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Typography>TOTAL PRICE</Typography>
-                <Typography sx={{ fontWeight: "700", fontSize: '20px' }}>{totalPrice}$</Typography>
+                <Typography sx={{ fontWeight: "700", fontSize: '20px' }}>{totalPrice ? totalPrice : 0}$</Typography>
             </Box>
             <Button 
-            className="checkout-button"
+                className="checkout-button"
                 size="large"
                 sx={{ 
                     bgcolor: 'primary.main', 
@@ -52,8 +50,7 @@ const SummaryCheckout = () => {
                         bgcolor: 'primary.main', 
                         opacity: 0.8
                     } 
-                }} 
-                onClick={() => dispatch(shoppingSliceActions.getOneItemPrice(0))}
+                }}            
             >
                 <Link href="/checkout">
                     CHECKOUT

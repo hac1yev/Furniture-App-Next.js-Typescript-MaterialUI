@@ -8,14 +8,14 @@ import { useState } from "react";
 import './Checkout.css'
 import LoadingOverlay from "../LazyLoading/LoadingOverlay";
 import Swal from "sweetalert2";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { shoppingSliceActions } from "@/store/shopping-slice";
 
 export default function PaymentForm() {
   const stripe = useStripe();
   const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
-  const oneItemPrice = useSelector((state: any) => state.shoppingReducer.oneItemPrice);
+  const oneItemPrice = window.localStorage.getItem("oneItemPrice");
   const [isLoading,setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -46,16 +46,6 @@ export default function PaymentForm() {
     }));
   };
 
-  if(totalPrice === 0) {
-    if(oneItemPrice > 0) {
-      totalPrice = oneItemPrice;
-    }else{
-      redirect('/');
-    }
-  }else if(totalPrice > 0 && oneItemPrice > 0) {    
-    totalPrice = oneItemPrice;
-  }  
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const cardElement = elements?.getElement(CardElement);
@@ -66,7 +56,7 @@ export default function PaymentForm() {
       };
       setIsLoading(true);
       const data = await axios.post("/api/create-payment-intent", {
-        amount: totalPrice,
+        amount: oneItemPrice ? oneItemPrice : totalPrice,
       });
 
       const clientSecret = data.data;
@@ -97,19 +87,19 @@ export default function PaymentForm() {
       }
 
       if(paymentResult?.paymentIntent?.status === "succeeded") {
+        window.localStorage.removeItem("oneItemPrice");
         Swal.fire(
           `${'Payment was successful!'}`,
           '',
           'success'
         );
-        if(oneItemPrice === 0) {
+        if(!oneItemPrice) {
           await axios("/api/shopping", {
             method: 'DELETE'
           });
           dispatch(shoppingSliceActions.clearShoppingProducts());
-        }else{
-          router.push('/');
         }
+        router.push('/');
       }
       
     } catch (error) {
