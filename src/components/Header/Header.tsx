@@ -54,7 +54,7 @@ const Header = () => {
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
                         </Link>
-                        <Link href={!session ? '/login' : '/profile'}>
+                        <Link href={!session ? '/login' : '/profile'} style={{ display: 'flex', alignItems: 'center' }}>
                             <Image width={20} height={20} className='user-img' src='/header/user-icon.svg' alt="user" />
                         </Link>
                     </div>
@@ -105,7 +105,7 @@ const Header = () => {
                                 <ShoppingCartOutlinedIcon color="action" />
                             </Badge>
                         </Link>
-                        <Link onClick={handleClick} href={!session ? '/login' : '/profile'}>
+                        <Link onClick={handleClick} href={!session ? '/login' : '/profile'} style={{ display: 'flex', alignItems: 'center' }}>
                             <Image width={20} height={20} src='/header/user-icon.svg' alt="user-icon" />
                         </Link>
                         </div>
