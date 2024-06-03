@@ -4,7 +4,7 @@ import { Box, Button, Container, Grid, TextField, Typography } from "@mui/materi
 import { useElements, useStripe, CardElement } from "@stripe/react-stripe-js";
 import axios from "axios";
 import PageNavigations from "../PageNavigations/PageNavigations";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './Checkout.css'
 import LoadingOverlay from "../LazyLoading/LoadingOverlay";
 import Swal from "sweetalert2";
@@ -15,7 +15,7 @@ import { shoppingSliceActions } from "@/store/shopping-slice";
 export default function PaymentForm() {
   const stripe = useStripe();
   const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
-  const oneItemPrice = localStorage.getItem("oneItemPrice");
+  const [oneItemPrice, setOneItemPrice] = useState<number | null>(null);
   const [isLoading,setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -45,6 +45,13 @@ export default function PaymentForm() {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const price = localStorage.getItem("oneItemPrice");
+      setOneItemPrice(price ? parseFloat(price) : null);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
