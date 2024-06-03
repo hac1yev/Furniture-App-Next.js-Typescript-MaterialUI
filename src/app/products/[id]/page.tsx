@@ -102,7 +102,7 @@ const ProductDetail = ({ params }: ParamsType) => {
   };
 
   const handleBuy = (price: number) => {
-    window.localStorage.setItem("oneItemPrice", `${price}`);
+    localStorage.setItem("oneItemPrice", `${price}`);
   };
 
   if(!productData) {

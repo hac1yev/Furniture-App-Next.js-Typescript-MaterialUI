@@ -9,7 +9,7 @@ const inter = Inter({ weight: '400', subsets: ["latin"] });
 const prata = Prata({ weight: '400', subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Furniture",
+  title: "Home Decor",
   description: "THE FURNITURE THAT DEFINES YOU",
   icons: {
     icon: '/favicon.png'

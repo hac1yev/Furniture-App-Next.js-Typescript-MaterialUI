@@ -15,7 +15,7 @@ import { shoppingSliceActions } from "@/store/shopping-slice";
 export default function PaymentForm() {
   const stripe = useStripe();
   const myShoppingProducts = useSelector((state: any) => state.shoppingReducer.myShoppingProducts);
-  const oneItemPrice = window.localStorage.getItem("oneItemPrice");
+  const oneItemPrice = localStorage.getItem("oneItemPrice");
   const [isLoading,setIsLoading] = useState(false);
   const router = useRouter();
   const dispatch = useDispatch();
@@ -97,7 +97,7 @@ export default function PaymentForm() {
       }
 
       if(paymentResult?.paymentIntent?.status === "succeeded") {
-        window.localStorage.removeItem("oneItemPrice");
+        localStorage.removeItem("oneItemPrice");
         Swal.fire(
           `${'Payment was successful!'}`,
           '',
