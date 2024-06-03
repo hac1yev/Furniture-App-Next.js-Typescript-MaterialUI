@@ -9,6 +9,7 @@ import useFavorites from "@/hooks/useFavorites";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { memo } from "react";
 
 const ProductItem = ({ id, image, furniture, title, price }: ProductItemType) => {
   const { data: session } = useSession();
@@ -40,7 +41,7 @@ const ProductItem = ({ id, image, furniture, title, price }: ProductItemType) =>
             style={{ objectFit: "cover", borderRadius: "10px" }}
             sizes="(max-width: 768px) 100vw, 33vw"
             src={image}
-            alt={furniture}
+            alt={furniture || ""}
             priority
             fill
           />
@@ -63,4 +64,4 @@ const ProductItem = ({ id, image, furniture, title, price }: ProductItemType) =>
   );
 };
 
-export default ProductItem;
+export default memo(ProductItem);

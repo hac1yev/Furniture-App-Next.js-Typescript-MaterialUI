@@ -2,7 +2,7 @@
 
 import { Box, Grid } from "@mui/material";
 import Link from "next/link";
-import React from "react";
+import React, { memo } from "react";
 import './PageNavigations.css';
 
 const PageNavigations = (props: PageNavigationTypes) => {
@@ -23,4 +23,4 @@ const PageNavigations = (props: PageNavigationTypes) => {
   );
 };
 
-export default PageNavigations;
+export default memo(PageNavigations);

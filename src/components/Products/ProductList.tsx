@@ -2,6 +2,7 @@
 
 import { Grid } from "@mui/material";
 import ProductItem from "./ProductItem";
+import { memo } from "react";
 
 const ProductList = ({ filteredProducts, productPage }: ProductListCompTypes) => {   
     return (
@@ -22,4 +23,4 @@ const ProductList = ({ filteredProducts, productPage }: ProductListCompTypes) =>
     );
 };
 
-export default ProductList;
+export default memo(ProductList);

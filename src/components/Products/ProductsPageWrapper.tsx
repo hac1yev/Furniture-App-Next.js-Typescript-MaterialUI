@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, memo } from "react";
 import AllProducts from "./AllProducts";
 
 const ProductsPageWrapper = () => {
@@ -11,4 +11,4 @@ const ProductsPageWrapper = () => {
     );
 };
 
-export default ProductsPageWrapper;
+export default memo(ProductsPageWrapper);

@@ -3,7 +3,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Checkbox, Grid, ListItem, Menu, MenuItem, Typography, useMediaQuery } from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SortIcon from "@mui/icons-material/Sort";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { productsSliceAction } from "@/store/products-slice";
 import { CategoryTitles, CollectionTitles } from "@/dummy_data/data";
@@ -205,4 +205,4 @@ const ProductHead = () => {
   );
 };
 
-export default ProductHead;
+export default memo(ProductHead);

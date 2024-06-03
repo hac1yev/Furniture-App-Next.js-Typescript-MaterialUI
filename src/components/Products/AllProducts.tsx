@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { memo, useEffect, useMemo } from "react";
 import "../../components/Home/Products/Products.css";
 import { Box, Container, Grid, useMediaQuery } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -27,8 +27,13 @@ const AllProducts = () => {
   const dispatch = useDispatch();  
   const router = useRouter();
 
-  const productPage = Number(searchParams.get("page")) || 1;
-  let paginationCount = Math.ceil(filteredProducts.length / 9);
+  const productPage = useMemo(() => {
+    return Number(searchParams.get("page")) || 1;
+  }, [searchParams]);
+
+  let paginationCount = useMemo(() => {
+    return Math.ceil(filteredProducts.length / 9);
+  }, [filteredProducts]);
 
   useEffect(() => {
     const fetchFurnitures = async () => {
@@ -47,7 +52,6 @@ const AllProducts = () => {
       router.replace(`/products?page=${productPage}`);
     }
   }, [productPage, router, paginationCount]);
-
 
   return (
     <Container component="div" maxWidth={false} sx={{ mt: 4, width: "100%" }}>
@@ -80,4 +84,4 @@ const AllProducts = () => {
   );
 };
 
-export default AllProducts;
+export default memo(AllProducts);

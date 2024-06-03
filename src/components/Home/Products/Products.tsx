@@ -4,6 +4,7 @@ import './Products.css';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import Preloader from '@/components/LazyLoading/LazyLoading';
 import dynamic from 'next/dynamic';
+import { memo } from 'react';
 
 const ProductItems = dynamic(() => import("./ProductItems"), {
   ssr: false,
@@ -27,4 +28,4 @@ const Products = ({ addFavorites,removeFavorites }: FavoriteHookTypes) => {
     );
 };
 
-export default Products;
+export default memo(Products);

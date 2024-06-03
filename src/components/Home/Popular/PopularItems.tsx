@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import '../Products/Products.css';
 import { Box, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
@@ -30,13 +30,13 @@ const PopularItems = ({ addFavorites, removeFavorites }: FavoriteHookTypes) => {
         })();
     }, []);
 
-    const handleAddFavorites = (id: string) => {
+    const handleAddFavorites = useCallback((id: string) => {
       if(session) {
         addFavorites(id);
       }else{
         navigation.push("/login");
       }
-    };
+    }, [addFavorites, navigation, session]);
 
     return (
     <Grid container>
@@ -68,4 +68,4 @@ const PopularItems = ({ addFavorites, removeFavorites }: FavoriteHookTypes) => {
     );
 };
 
-export default PopularItems;
+export default memo(PopularItems);
