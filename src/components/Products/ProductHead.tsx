@@ -94,7 +94,6 @@ const ProductHead = () => {
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
-                sx={{ maxWidth: '264.64px', width: '100%' }}
                 MenuListProps={{
                   'aria-labelledby': 'basic-button',
                 }}
