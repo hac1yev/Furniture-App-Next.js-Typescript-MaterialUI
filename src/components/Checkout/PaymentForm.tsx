@@ -50,6 +50,16 @@ export default function PaymentForm() {
     e.preventDefault();
     const cardElement = elements?.getElement(CardElement);
     
+    if(!oneItemPrice && totalPrice === 0){
+      Swal.fire(
+        `You have to select a product!`,
+        '',
+        'error'
+      );
+      router.push('/products');
+      return;
+    }
+
     try {
       if (!stripe || !cardElement) {
         return null;
