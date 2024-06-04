@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, Button, Checkbox, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import "./LoginForm.css";
 import Link from "next/link";
 import PasswordInput from "../ProfileBody/PasswordInput";
@@ -26,6 +26,7 @@ const LoginForm = () => {
 
     if(response?.status === 200) {
       router.push("/");
+      window.location.reload();
     }
     else if(response?.status === 401) {
       setErr(response?.error)
