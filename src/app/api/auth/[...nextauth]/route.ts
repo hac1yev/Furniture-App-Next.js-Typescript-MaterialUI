@@ -4,7 +4,18 @@ import { User } from "@/models/User";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const handler = NextAuth({
+type ST = {
+  session: {
+    user : {
+      name: string;
+      email: string;
+      img: string;
+    }
+  };
+  token: any;
+}
+
+export const authOptions: any = {
   session: {
     strategy: "jwt",
   },
@@ -62,14 +73,16 @@ const handler = NextAuth({
       } 
       return token;
     },
-    async session({ session, token }: any) { 
+    async session({ session, token }: ST) { 
       if (token) {
-        session.user.username = token.username;
+        session.user.name = token.username;
         session.user.email = token.email;
       }
       return session;
     }
   }
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

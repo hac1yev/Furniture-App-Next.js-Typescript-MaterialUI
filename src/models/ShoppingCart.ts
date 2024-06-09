@@ -16,7 +16,7 @@ const ProductInCartSchema = new Schema({
 });
 
 const ShoppingCartSchema = new Schema({
-    email: {
+    username: {
         type: String,
         required: true,
         unique: true

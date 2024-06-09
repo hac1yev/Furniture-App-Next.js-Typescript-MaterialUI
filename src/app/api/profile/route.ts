@@ -1,15 +1,16 @@
 import { connectToDB } from "@/lib/connectToDB";
 import { User } from "@/models/User";
 import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET(req: Request) {
-    const session = await getServerSession();
+    const session: any = await getServerSession(authOptions);
 
-    const email = session?.user?.email;
+    const username = session?.user?.name;    
 
     await connectToDB();
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });    
 
     return Response.json({ user });
 };
@@ -17,13 +18,13 @@ export async function GET(req: Request) {
 export async function PUT(req: Request) {
     const data = await req.json();
 
-    const session = await getServerSession();
+    const session: any = await getServerSession(authOptions);
 
-    const email = session?.user?.email;
+    const username = session?.user?.name;
 
     await connectToDB();
 
-    await User.updateOne({email}, {...data});
+    await User.updateOne({username}, {...data});
 
     return Response.json({ message: 'Success!!!' });
 };

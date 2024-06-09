@@ -2,21 +2,22 @@ import { connectToDB } from "@/lib/connectToDB";
 import { Favorite } from "@/models/Favorite";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
     const { id } = await req.json();
-    const session = await getServerSession();
-    const email = session?.user?.email;    
+    const session: any = await getServerSession(authOptions);
+    const username = session?.user?.name;     
 
     await connectToDB();
 
-    let favoriteUser = await Favorite.findOne({ email });
+    let favoriteUser = await Favorite.findOne({ username });
 
     if (favoriteUser) {        
-        await Favorite.updateOne({email}, { $push: { favorites: id } });
+        await Favorite.updateOne({username}, { $push: { favorites: id } });
         await favoriteUser.save();
     } else {
-        const favoriteUser = new Favorite({ email, favorites: [id] });
+        const favoriteUser = new Favorite({ username, favorites: [id] });
         await favoriteUser.save(); 
     }
 
@@ -25,12 +26,12 @@ export async function POST(req: Request) {
 
 export async function DELETE(req: Request) {
     const { id } = await req.json();
-    const session = await getServerSession();
-    const email = session?.user?.email;    
+    const session: any = await getServerSession(authOptions);
+    const username = session?.user?.name;    
 
     await connectToDB();
 
-    await Favorite.findOneAndUpdate({ email }, { $pull: { favorites: id } });
+    await Favorite.findOneAndUpdate({ username }, { $pull: { favorites: id } });
     
     revalidatePath("/profile");
 
@@ -38,12 +39,12 @@ export async function DELETE(req: Request) {
 };
 
 export async function GET(req: Request) {
-    const session = await getServerSession();
-    const email = session?.user?.email;    
+    const session: any = await getServerSession(authOptions);
+    const username = session?.user?.name;    
 
     await connectToDB();
 
-    const userFavorites = await Favorite.findOne({ email });
+    const userFavorites = await Favorite.findOne({ username });
 
     if(userFavorites) {
         return Response.json({ data: userFavorites });
@@ -53,5 +54,4 @@ export async function GET(req: Request) {
         message: 'There is no favorite product!!!' 
     });
     }
-
 };

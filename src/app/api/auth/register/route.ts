@@ -18,16 +18,10 @@ export async function POST(req: Request) {
     
     await connectToDB();
 
-    const user = await User.findOne({ email });
-
-    const isUsernameExist = await User.findOne({ username }); 
-
-    if(isUsernameExist) {
-        return Response.json({ message: 'This username is already taken!', status: 409 });
-    };
+    const user = await User.findOne({ username });
 
     if(user) {
-        return Response.json({ message: 'Email already exists!', status: 409 });
+        return Response.json({ message: 'This username is already taken!', status: 409 });
     };
 
     const hashedPassword = await hashPassword(password);

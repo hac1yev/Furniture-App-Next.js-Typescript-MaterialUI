@@ -1,14 +1,15 @@
 import { connectToDB } from "@/lib/connectToDB";
 import { Favorite } from "@/models/Favorite";
 import { getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function GET(req: Request) {
-    const session = await getServerSession();
-    const email = session?.user?.email;    
+    const session: any = await getServerSession(authOptions);
+    const username = session?.user?.name;    
 
     await connectToDB();
 
-    const userFavorites = await Favorite.findOne({ email });
+    const userFavorites = await Favorite.findOne({ username });
 
     const populate = await userFavorites.populate('favorites');
 

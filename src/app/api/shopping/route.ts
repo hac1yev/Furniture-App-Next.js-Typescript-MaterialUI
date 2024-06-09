@@ -1,14 +1,15 @@
 import { connectToDB } from "@/lib/connectToDB";
 import { ShoppingCart } from "@/models/ShoppingCart";
 import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function GET() {
-    const session = await getServerSession();
-    const email = session?.user?.email;
+    const session: any = await getServerSession(authOptions);
+    const username = session?.user?.name;
 
     await connectToDB();
 
-    const products = await ShoppingCart.findOne({ email }).populate("products.product");    
+    const products = await ShoppingCart.findOne({ username }).populate("products.product");    
 
     if (products) {
         return Response.json({ data: products });
@@ -20,19 +21,19 @@ export async function GET() {
 export async function PUT(req: Request) {
     try {
         const { count_type, id } = await req.json();
-        const session = await getServerSession();
-        const email = session?.user?.email;    
+        const session: any = await getServerSession(authOptions);
+        const username = session?.user?.name;    
 
         await connectToDB();
  
         if(count_type === 'increase') {            
             await ShoppingCart.updateOne(
-                { email, "products.product": id },
+                { username, "products.product": id },
                 { $inc: { "products.$.count": 1 } }
             );
         } else if(count_type === 'decrease') {
             await ShoppingCart.updateOne(
-                { email, "products.product": id },
+                { username, "products.product": id },
                 { $inc: { "products.$.count": -1 } }
             );
         }
@@ -45,12 +46,12 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE() {
-    const session = await getServerSession();
-    const email = session?.user?.email;
+    const session: any = await getServerSession(authOptions);
+    const username = session?.user?.name;
 
     await connectToDB();
 
-    await ShoppingCart.deleteOne({ email });    
+    await ShoppingCart.deleteOne({ username });    
 
     return Response.json({ message: 'Paid!' });
 };

@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 import { Product } from "./Product";
 
 const FavoriteSchema = new Schema({
-    email: {
+    username: {
         type: String,
         required: true,
         unique: true,
