@@ -1,8 +1,8 @@
 import { connectToDB } from "@/lib/connectToDB";
 import { Favorite } from "@/models/Favorite";
+import { authOptions } from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
 import { revalidatePath } from "next/cache";
-import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(req: Request) {
     const { id } = await req.json();

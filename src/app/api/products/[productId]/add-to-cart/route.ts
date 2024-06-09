@@ -1,6 +1,6 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { connectToDB } from "@/lib/connectToDB";
 import { ShoppingCart } from "@/models/ShoppingCart";
+import { authOptions } from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
 
 export async function POST(req: Request, { params }: { params: { productId: string } }){

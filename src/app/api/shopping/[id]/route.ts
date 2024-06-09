@@ -1,7 +1,7 @@
 import { connectToDB } from "@/lib/connectToDB";
 import { ShoppingCart } from "@/models/ShoppingCart";
+import { authOptions } from "@/utils/authOptions";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../../auth/[...nextauth]/route";
 
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {    
     const { id } = params;       

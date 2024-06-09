@@ -112,3 +112,14 @@ declare type SendEmailTypes = {
     emailType: string;
     userId: string;
 };
+
+declare type ST = {
+    session: {
+      user : {
+        name: string;
+        email: string;
+        img: string;
+      }
+    };
+    token: any;
+};
