@@ -10,8 +10,12 @@ import { shoppingSliceActions } from "@/store/shopping-slice";
 import Swal from 'sweetalert2';
 import '../../../components/Products/Product.css'
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const ProductDetail = ({ params }: ParamsType) => {
+  const { data: session } = useSession();
+  const router = useRouter();  
   const matches = useMediaQuery('(max-width:899.5px)');
   const [count,setCount] = useState(1);
   const dispatch = useDispatch();
@@ -63,6 +67,11 @@ const ProductDetail = ({ params }: ParamsType) => {
   };
 
   const addToCart = async () => {
+    if(!session) {
+      router.push('/login');
+      return;
+    }
+
     try {
       Swal.fire({
         title: 'Please Wait !',
