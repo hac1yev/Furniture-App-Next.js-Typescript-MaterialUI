@@ -20,6 +20,10 @@ export function middleware(request: NextRequest) {
     ].includes(request.nextUrl.pathname)) {
         return NextResponse.redirect(new URL('/', request.url));
     }
+
+    if(request.nextUrl.pathname === '/admin') {
+        return NextResponse.redirect(new URL("https://homedecor-admin-panel.vercel.app", request.url));
+    }
 }
 
 export const config = {
@@ -32,6 +36,7 @@ export const config = {
         '/verification-code',
         '/profile', 
         '/shopping-cart',
-        '/checkout'
+        '/checkout',
+        '/admin'
     ],
 }

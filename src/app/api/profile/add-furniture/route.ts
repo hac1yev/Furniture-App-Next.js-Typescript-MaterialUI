@@ -9,6 +9,9 @@ export async function POST(req: Request) {
     const base64Data = image.replace(/^data:image\/\w+;base64,/, '');
     const binaryData = Buffer.from(base64Data, 'base64');    
 
+    console.log(binaryData.toString('base64'));
+  
+
     try {
       const response = await fetch('https://api.imgur.com/3/image', {
         method: 'POST',
