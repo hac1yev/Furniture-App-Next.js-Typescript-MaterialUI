@@ -5,14 +5,11 @@ import Link from 'next/link';
 import { Suspense, useEffect, useState } from 'react';
 import './Header.css';
 import { useSession } from 'next-auth/react';
-import { Badge, Box, IconButton } from '@mui/material';
+import { Badge } from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Search from './Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { shoppingSliceActions } from '@/store/shopping-slice';
-import Person2OutlinedIcon from '@mui/icons-material/Person2Outlined';
-import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 
 const Header = () => {    
     const {data: session} = useSession();
@@ -48,33 +45,23 @@ const Header = () => {
                 <div className='header-top'>
                     <div className='header-left'>
                         {/* <div className='lang'>Az</div> */}
-                        <IconButton onClick={() => setOpenSearch(true)}>
-                            <SearchOutlinedIcon className='search-icon' />
-                        </IconButton>
+                        <Image width={20} height={20} className='search-icon' onClick={() => setOpenSearch(true)} src='/header/search.svg' alt="search-icon" />
                     </div>
                     <div className="logo"><Link href="/"><strong>HomeDecor</strong></Link></div>
                     <div className='header-right'>
                         <Link href={'/shopping-cart'} className='desktop-shopping'>
-                            <IconButton>
-                                <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
-                                    <ShoppingCartOutlinedIcon color="action" className='shopping-img' />
-                                </Badge>
-                            </IconButton>
+                            <Badge badgeContent={myShoppingProducts?.length} color={"primary"} >
+                                <ShoppingCartOutlinedIcon color="action" />
+                            </Badge>
                         </Link>
                         <Link href={!session ? '/login' : '/profile'} style={{ display: 'flex', alignItems: 'center' }}>
-                            <IconButton>
-                                <Person2OutlinedIcon className='user-img' />
-                            </IconButton>
+                            <Image width={20} height={20} className='user-img' src='/header/user-icon.svg' alt="user" />
                         </Link>
                     </div>
-                    <Box component={"div"} className="burger">
-                        <IconButton onClick={() => setOpenSearch(true)}>
-                            <SearchOutlinedIcon width={20} height={20} className='mobile-search-icon' />
-                        </IconButton>
-                        <IconButton onClick={handleClick}>
-                            <MenuOutlinedIcon width={20} height={20} />
-                        </IconButton>
-                    </Box>
+                    <div className="burger">
+                        <Image onClick={() => setOpenSearch(true)} width={20} height={20} className='mobile-search-icon' src='/header/search.svg' alt="search-icon" />
+                        <Image width={20} height={20} onClick={handleClick} src='/header/hamburger.svg' alt="hamburger-icon" />
+                    </div>
                 </div>
                 <nav className="navbar">
                     <ul className="links">

@@ -38,18 +38,12 @@ header ul a{
 }
 
 .header-left,
+.header-right,
 .header-mobile-left {
     display: flex;
     align-items: center;
     gap: 20px;
 }
-
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
 
 .logo strong {
     display: inline-block;
@@ -291,13 +285,8 @@ header ul a{
 .mobile-search-icon {
     background-color: #EAE6DF;
     cursor: pointer;
-}   
-
-.user-img,
-.shopping-img {
-    width: 25px;
-    height: 25px;
 }
+
 
 @media screen and (max-width: 767px){
 
@@ -313,7 +302,7 @@ header ul a{
     .burger {
         background-color: #EAE6DF;
         display: flex;
-        gap: 3px;
+        gap: 20px;
         align-items: center;
     }
 
