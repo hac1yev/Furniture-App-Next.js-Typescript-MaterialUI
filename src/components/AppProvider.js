@@ -8,6 +8,7 @@ import theme from "./theme";
 import ProviderWrapper from "./ProviderWrapper";
 
 const AppProvider = ({ children }) => {
+  
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
